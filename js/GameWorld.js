@@ -21,15 +21,10 @@ class GameWorld {
     this.assets.forEach(function(asset) {
       switch (asset.Type) {
         case "Rock":
-          game.physics.arcade.overlap(gameWorld.player.sprite, asset.Sprite, gameWorld.rockCollision);
+          game.physics.arcade.collide(gameWorld.player.sprite, asset.Sprite);
           break;
       }
     });
-  }
-
-  rockCollision(playerSprite, rockSprite) {
-    // Do something because we collided
-    console.log("Ouch a rock!");
   }
 
   cleanUp() {
@@ -50,6 +45,7 @@ class GameWorld {
     }
     game.physics.arcade.enable(sprite);
     sprite.enableBody = true;
+    sprite.body.immovable = true;
 
     this.assets.push({Sprite: sprite, Type: type});
   }

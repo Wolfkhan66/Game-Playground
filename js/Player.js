@@ -8,32 +8,34 @@ class Player {
     this.cursors = game.input.keyboard.createCursorKeys();
     this.velocity = 100;
     this.gravity = 15;
+    this.actionKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    this.actionKey.onDown.add(this.action, this);
+    this.sprite.facingDirection;
     this.keys = [
       {
         cursor: this.cursors.left,
         action: () => {
           gameWorld.player.sprite.body.velocity.x = -gameWorld.player.velocity;
-        }
+        },
+        direction: "left"
       }, {
         cursor: this.cursors.right,
         action: () => {
           gameWorld.player.sprite.body.velocity.x = gameWorld.player.velocity;
-        }
+        },
+        direction: "right"
       }, {
         cursor: this.cursors.up,
         action: () => {
           gameWorld.player.sprite.body.velocity.y = -gameWorld.player.velocity;
-        }
+        },
+        direction: "up"
       }, {
         cursor: this.cursors.down,
         action: () => {
           gameWorld.player.sprite.body.velocity.y = gameWorld.player.velocity;
-        }
-      }, {
-        cursor: game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR),
-        action: () => {
-          gameWorld.player.action();
-        }
+        },
+        direction: "down"
       }
     ];
   }
@@ -49,14 +51,14 @@ class Player {
   detectMovement() {
     // Listen for keypresses to move the player sprite
     // To be able to access the sprite properties within the foreach loop we need to declare it locally inside the function
-    var sprite = this.sprite;
-    var gravity = this.gravity;
+    var player = this;
     this.keys.forEach(function(key) {
       if (key.cursor.isDown) {
         key.action();
+        player.sprite.direction = key.direction;
       } else {
-        sprite.body.velocity.x -= sprite.body.velocity.x / gravity;
-        sprite.body.velocity.y -= sprite.body.velocity.y / gravity;
+        player.sprite.body.velocity.x -= player.sprite.body.velocity.x / player.gravity;
+        player.sprite.body.velocity.y -= player.sprite.body.velocity.y / player.gravity;
       }
     });
   }
