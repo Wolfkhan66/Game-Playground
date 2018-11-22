@@ -19,6 +19,8 @@ function preload() {
   game.stage.backgroundColor = "#4488AA";
   game.load.image('Player', 'assets/Player.png');
   game.load.image('Rock', 'assets/Rock.png');
+  game.load.image('Tile', 'assets/Tile.png');
+  game.load.image('Tile2', 'assets/Tile2.png');
   console.log("Assets Loaded.");
 }
 

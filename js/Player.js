@@ -1,7 +1,7 @@
 class Player {
   constructor() {
     console.log("Constructing Player");
-    this.sprite = game.add.sprite(125, 275, 'Player', 'Player.png');
+    this.sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'Player', 'Player.png');
     // Here we are enabling the Phaser physics engine on the sprite to allow us to do things such as check for collisions or apply velocity.
     game.physics.arcade.enable(this.sprite);
     this.sprite.enableBody = true;

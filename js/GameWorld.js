@@ -5,11 +5,18 @@ class GameWorld {
     // With this enabled we can make use of phasers collisions methods to detect for an overlap or even apply gravity to a sprite
     game.physics.startSystem(Phaser.Physics.ARCADE);
     this.assets = [];
-    this.player = new Player();
+
+    for (var y = 0; y < 24; y++) {
+      for (var x = 0; x < 40; x++) {
+        this.createAsset('Tile', x * 32, y * 32)
+      }
+    }
 
     for (var i = 0; i < 15; i++) {
-      this.createAsset("Rock");
+      this.createAsset("Rock", 0, 0);
     }
+
+    this.player = new Player();
   }
 
   update() {
@@ -23,8 +30,22 @@ class GameWorld {
         case "Rock":
           game.physics.arcade.collide(gameWorld.player.sprite, asset.Sprite);
           break;
+        case "Tile":
+          game.physics.arcade.overlap(gameWorld.player.sprite, asset.Sprite)
+            ? gameWorld.tileCollision(gameWorld.player.sprite, asset.Sprite)
+            : gameWorld.resetTile(gameWorld.player.sprite, asset.Sprite);
+          break;
       }
     });
+  }
+
+  tileCollision(playerSprite, tileSprite) {
+    console.log("tile collision");
+    tileSprite.loadTexture('Tile2');
+  }
+
+  resetTile(playerSprite, tileSprite) {
+    tileSprite.loadTexture('Tile');
   }
 
   cleanUp() {
@@ -33,13 +54,16 @@ class GameWorld {
     this.player.reset();
   }
 
-  createAsset(type) {
+  createAsset(type, x, y) {
     var sprite;
     switch (type) {
       case "Rock":
-        sprite = game.add.sprite(0, 0, 'Rock', 'Rock.png');
+        sprite = game.add.sprite(x, y, type, type + '.png');
         sprite.x = game.rnd.integerInRange(10, 1270);
         sprite.y = game.rnd.integerInRange(10, 758);
+        break;
+      case "Tile":
+        sprite = game.add.sprite(x, y, type, type + '.png');
         break;
       default:
     }
