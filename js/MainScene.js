@@ -1,15 +1,8 @@
-class mainScene {
-  preload() {
-    console.log("Loading Assets...");
-    // Here we preload game assets such as images, audio, tilemaps and spritesheets \\
-    this.backgroundColor = "#4488AA";
-    this.load.image('Player', 'assets/Player.png');
-    this.load.image('Rock', 'assets/Rock.png');
-    this.load.image('Tile', 'assets/Tile.png');
-    this.load.image('Tile2', 'assets/Tile2.png');
-    this.load.image('Tile3', 'assets/Tile3.png');
-    console.log("Assets Loaded.");
+class MainScene extends Phaser.Scene {
+  constructor(test) {
+    super({key: 'MainScene'});
   }
+  preload() {}
 
   create() {
     console.log("Creating World...");
