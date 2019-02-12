@@ -4,14 +4,10 @@ class LoadingScene extends Phaser.Scene {
   }
 
   preload() {
-    var progressBar = this.add.graphics();
-
-    var progressBox = this.add.graphics();
-    progressBox.fillStyle(0x222222, 0.8);
-    progressBox.fillRect(240, 270, 320, 50);
-
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
+    var progressBar = this.add.graphics();
+
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -46,24 +42,23 @@ class LoadingScene extends Phaser.Scene {
 
     assetText.setOrigin(0.5, 0.5);
 
-    this.load.on('progress', function(value) {
+    this.load.on('progress', (value) => {
       percentText.setText(parseInt(value * 100) + '%');
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
-      progressBar.fillRect(250, 280, 300 * value, 30);
+      progressBar.fillRect(0, height / 2 - 190, width * value, 100);
     });
 
-    this.load.on('fileprogress', function(file) {
+    this.load.on('fileprogress', (file) => {
       assetText.setText('Loading asset: ' + file.key);
     });
 
     this.load.on('complete', () => {
       progressBar.destroy();
-      progressBox.destroy();
       loadingText.destroy();
       percentText.destroy();
       assetText.destroy();
-      this.scene.start('MainScene');
+      this.scene.start('TitleScene');
     });
 
     this.backgroundColor = "#4488AA";
@@ -72,5 +67,8 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('Tile', 'assets/Tile.png');
     this.load.image('Tile2', 'assets/Tile2.png');
     this.load.image('Tile3', 'assets/Tile3.png');
+    for (var i = 0; i < 50; i++) {
+      this.load.image('Test' + i, 'assets/test.jpg');
+    }
   }
 }

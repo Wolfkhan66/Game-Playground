@@ -9,7 +9,7 @@ var game = new Phaser.Game({
   },
   backgroundColor: '#3498db',
   scene: [
-    LoadingScene, MainScene
+    LoadingScene, TitleScene, MainScene
   ],
   physics: {
     default: 'arcade'
