@@ -5,20 +5,39 @@ class MainScene extends Phaser.Scene {
   preload() {}
 
   create() {
+    var width = this.cameras.main.width;
+    var height = this.cameras.main.height;
     console.log("Creating World...");
-    this.tiles = this.physics.add.group();
-    for (var y = 0; y < 24; y++) {
-      for (var x = 0; x < 40; x++) {
-        this.tiles.create(x * 32, y * 32, 'Tile')
+    var loadingText = this.make.text({
+      x: 100,
+      y: 100,
+      text: 'Main Scene',
+      style: {
+        font: '20px monospace',
+        fill: '#ffffff'
       }
-    }
-
-    this.rocks = this.physics.add.group({key: 'Rock', frameQuantity: 30, immovable: true});
-
-    Phaser.Actions.PlaceOnRectangle(this.rocks.getChildren(), new Phaser.Geom.Rectangle(84, 84, 616, 416));
-
-    this.player = new Player(this);
+    });
+    loadingText.setOrigin(0.5, 0.5);
+    var sprite = this.add.sprite(70, height - 70, 'Player').setInteractive();
+    sprite.on('pointerdown', (pointer) => {
+      this.scene.start('TrainingScene');
+    });
+    var sprite2 = this.add.sprite(width - 70, height - 70, 'Player').setInteractive();
+    sprite2.on('pointerdown', (pointer) => {
+      this.scene.start('ArenaScene');
+    });
     console.log("Creation complete.");
+
+    //  this.tiles = this.physics.add.group();
+    //  for (var y = 0; y < 24; y++) {
+    //    for (var x = 0; x < 40; x++) {
+    //      this.tiles.create(x * 32, y * 32, 'Tile')
+    //    }
+    //  }
+
+    //  this.rocks = this.physics.add.group({key: 'Rock', frameQuantity: 30, immovable: true});
+    //  Phaser.Actions.PlaceOnRectangle(this.rocks.getChildren(), new Phaser.Geom.Rectangle(84, 84, 616, 416));
+    //  this.player = new Player(this);
     // this.score = 0;
     //let style = { font: '20px Arial', fill: '#fff' };
     //this.scoreText = this.add.text(20, 20, 'score: ' + this.score, style);
@@ -27,8 +46,9 @@ class MainScene extends Phaser.Scene {
   }
 
   update() {
-    this.player.update();
-    this.physics.world.collide(this.player.sprite, this.rocks);
+
+    //  this.player.update();
+    //this.physics.world.collide(this.player.sprite, this.rocks);
   }
 
   //hit() {

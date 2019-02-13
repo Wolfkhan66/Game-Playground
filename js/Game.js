@@ -4,12 +4,17 @@ var game = new Phaser.Game({
     parent: 'game',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1280,
-    height: 768
+    width: 768,
+    height: 1280
   },
   backgroundColor: '#3498db',
   scene: [
-    LoadingScene, TitleScene, MainScene
+    LoadingScene,
+    TitleScene,
+    MainScene,
+    ArenaScene,
+    TrainingScene,
+    ShopScene
   ],
   physics: {
     default: 'arcade'

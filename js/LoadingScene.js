@@ -67,7 +67,7 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('Tile', 'assets/Tile.png');
     this.load.image('Tile2', 'assets/Tile2.png');
     this.load.image('Tile3', 'assets/Tile3.png');
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 2; i++) {
       this.load.image('Test' + i, 'assets/test.jpg');
     }
   }
