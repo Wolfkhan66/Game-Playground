@@ -7,7 +7,6 @@ class ShopScene extends Phaser.Scene {
   create() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    console.log("Creating World...");
     var loadingText = this.make.text({
       x: 100,
       y: 100,
@@ -22,9 +21,9 @@ class ShopScene extends Phaser.Scene {
     sprite.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
-
-    console.log("Creation complete.");
   }
 
-  update() {}
+  update() {
+    console.log("ShopScene Update");
+  }
 }

@@ -7,7 +7,9 @@ class LoadingScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     var progressBar = this.add.graphics();
-
+    var player = new Player();
+    this.registry.set('player', player)
+    player.currency++;
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -70,5 +72,9 @@ class LoadingScene extends Phaser.Scene {
     for (var i = 0; i < 2; i++) {
       this.load.image('Test' + i, 'assets/test.jpg');
     }
+  }
+
+  update() {
+    console.log("LoadingScene Update");
   }
 }

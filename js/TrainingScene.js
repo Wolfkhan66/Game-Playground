@@ -1,13 +1,13 @@
 class TrainingScene extends Phaser.Scene {
-  constructor(test) {
+  constructor() {
     super({key: 'TrainingScene'});
   }
+
   preload() {}
 
   create() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    console.log("Creating World...");
     var loadingText = this.make.text({
       x: 100,
       y: 100,
@@ -22,10 +22,10 @@ class TrainingScene extends Phaser.Scene {
     this.test.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
-    console.log("Creation complete.");
-
   }
 
-  update() {}
+  update() {
+    console.log("TrainingScene Update");
+  }
 
 }

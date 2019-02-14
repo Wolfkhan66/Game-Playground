@@ -29,5 +29,7 @@ class ArenaScene extends Phaser.Scene {
     console.log("Creation complete.");
   }
 
-  update() {}
+  update() {
+    console.log("ArenaScene Update");
+  }
 }
