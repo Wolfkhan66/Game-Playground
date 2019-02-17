@@ -7,9 +7,11 @@ class LoadingScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     var progressBar = this.add.graphics();
+
     var player = new Player();
     this.registry.set('player', player)
     player.currency++;
+
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -64,6 +66,7 @@ class LoadingScene extends Phaser.Scene {
     });
 
     this.backgroundColor = "#4488AA";
+    this.load.image('StartButton', 'assets/StartButton.png');
     this.load.image('Player', 'assets/Player.png');
     this.load.image('Rock', 'assets/Rock.png');
     this.load.image('Tile', 'assets/Tile.png');

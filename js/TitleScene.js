@@ -4,27 +4,27 @@ class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    this.player = this.registry.get('player');
-    this.player.currency++;
-    var loadingText = this.make.text({
-      x: 100,
-      y: 100,
-      text: 'Title Scene',
+
+    var titleText = this.make.text({
+      x: 384,
+      y: 400,
+      text: 'Spirit Hollow',
       style: {
-        font: '20px monospace',
+        fontFamily: '"Roboto Condensed"',
+        font: '60px monospace',
         fill: '#ffffff'
       }
     });
-    loadingText.setOrigin(0.5, 0.5);
-    var sprite = this.add.sprite(400, 300, 'Player').setInteractive();
-    sprite.on('pointerdown', (pointer) => {
+    titleText.setOrigin(0.5, 0.5);
+
+    var startButton = this.add.sprite(384, 800, 'StartButton').setInteractive();
+    startButton.on('pointerdown', (pointer) => {
       this.scene.start('MainScene', {player: this.player});
     });
+    startButton.setOrigin(0.5, 0.5);
 
   }
-  update() {
-    console.log(this.player.currency);
-    console.log("TitleScene Update");
-  }
+
+  update() {}
 
 }
