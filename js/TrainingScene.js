@@ -22,6 +22,7 @@ class TrainingScene extends Phaser.Scene {
     this.test.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
+
   }
 
   update() {

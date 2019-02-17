@@ -14,6 +14,7 @@ var game = new Phaser.Game({
     MainScene,
     ArenaScene,
     TrainingScene,
+    PetScene,
     ShopScene
   ],
   physics: {
