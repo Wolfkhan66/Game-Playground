@@ -30,11 +30,19 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
 
-    var pet = this.add.sprite(384, 800, 'Player').setInteractive();
-    pet.on('pointerdown', (pointer) => {
-      this.scene.start('PetScene');
-    });
-    pet.setOrigin(0.5, 0.5);
+    var player = this.registry.get('player');
+    player.scene = this;
+
+    for (var i = 0; i < player.pets.length; i++) {
+      let pet = player.pets[i];
+      pet.sprite = this.add.sprite(384, 800 - (i * -60), 'Player').setInteractive();
+      pet.sprite.on('pointerdown', (pointer) => {
+        player.activePet = pet;
+        this.scene.start('PetScene');
+      });
+      pet.sprite.setOrigin(0.5, 0.5);
+      pet.sprite.setTint(pet.tint);
+    }
   }
 
   update() {

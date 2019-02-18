@@ -8,9 +8,7 @@ class LoadingScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     var progressBar = this.add.graphics();
 
-    var player = new Player();
-    this.registry.set('player', player)
-    player.currency++;
+    this.registry.set('player', new Player(this))
 
     var loadingText = this.make.text({
       x: width / 2,

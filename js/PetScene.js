@@ -6,11 +6,24 @@ class PetScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    var width = this.cameras.main.width;
+    this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    this.pet = new Pet(this);
+    this.player = this.registry.get('player');
+    this.pet = this.player.activePet;
+    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Player').setInteractive();
+    this.pet.sprite.setScale(4);
+    this.pet.sprite.setTint(this.pet.tint);
+
+    this.leftArrow = this.add.sprite(100, 300, 'Player').setInteractive();
+    this.leftArrow.on('pointerdown', (pointer) => {
+      this.updatePet('left');
+    });
+    this.rightArrow = this.add.sprite(668, 300, 'Player').setInteractive();
+    this.rightArrow.on('pointerdown', (pointer) => {
+      this.updatePet('right');
+    });
     this.nameText = this.make.text({
-      x: width / 2,
+      x: this.width / 2,
       y: 100,
       text: this.pet.name,
       style: {
@@ -57,4 +70,26 @@ class PetScene extends Phaser.Scene {
   }
 
   update() {}
+  updatePet(direction) {
+    console.log(direction);
+    var index = this.player.pets.indexOf(this.pet);
+    if (direction == 'left') {
+      if (index == 0) {
+        index = this.player.pets.length - 1;
+      } else {
+        index--;
+      }
+    } else {
+      if (index == 3) {
+        index = 0;
+      } else {
+        index++;
+      }
+    }
+    this.pet = this.player.pets[index];
+    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Player').setInteractive();
+    this.pet.sprite.setScale(4);
+    this.pet.sprite.setTint(this.pet.tint);
+    console.log(this);
+  }
 }
