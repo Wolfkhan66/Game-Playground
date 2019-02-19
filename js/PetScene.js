@@ -10,7 +10,7 @@ class PetScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     this.player = this.registry.get('player');
     this.pet = this.player.activePet;
-
+    this.petInfo = this.add.group();
     this.leftArrow = this.add.sprite(100, 300, 'Player').setInteractive();
     this.leftArrow.on('pointerdown', (pointer) => {
       this.changePet('left');
@@ -52,7 +52,7 @@ class PetScene extends Phaser.Scene {
   }
 
   updatePet() {
-    this.player.destroyElements();
+    this.petInfo.clear(true, true);
     this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Player').setInteractive();
     this.pet.sprite.setScale(4);
     this.pet.sprite.setTint(this.pet.tint);
@@ -66,7 +66,7 @@ class PetScene extends Phaser.Scene {
       }
     });
     nameText.setOrigin(0.5, 0.5);
-    this.player.addElement('nameText', 'Text', nameText, true);
+    this.petInfo.add(nameText);
     for (var i = 0; i < 7; i++) {
       var skill = this.pet.skills[i];
       var elementText = this.make.text({
@@ -95,11 +95,10 @@ class PetScene extends Phaser.Scene {
           fill: '#ffffff'
         }
       });
-
-      this.player.addElement('levelText' + i, 'Text', levelText);
-      this.player.addElement('elementText' + i, 'Text', elementText);
-      this.player.addElement('levelBar' + i, 'Graphics', levelBar);
-      this.player.addElement('expBar' + i, 'Graphics', expBar);
+      this.petInfo.add(levelText);
+      this.petInfo.add(elementText);
+      this.petInfo.add(levelBar);
+      this.petInfo.add(expBar);
     }
   }
 
