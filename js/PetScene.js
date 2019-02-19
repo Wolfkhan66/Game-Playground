@@ -10,57 +10,17 @@ class PetScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     this.player = this.registry.get('player');
     this.pet = this.player.activePet;
-    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Player').setInteractive();
-    this.pet.sprite.setScale(4);
-    this.pet.sprite.setTint(this.pet.tint);
 
     this.leftArrow = this.add.sprite(100, 300, 'Player').setInteractive();
     this.leftArrow.on('pointerdown', (pointer) => {
-      this.updatePet('left');
+      this.changePet('left');
     });
     this.rightArrow = this.add.sprite(668, 300, 'Player').setInteractive();
     this.rightArrow.on('pointerdown', (pointer) => {
-      this.updatePet('right');
+      this.changePet('right');
     });
-    this.nameText = this.make.text({
-      x: this.width / 2,
-      y: 100,
-      text: this.pet.name,
-      style: {
-        font: '40px monospace',
-        fill: '#ffffff'
-      }
-    });
-    this.nameText.setOrigin(0.5, 0.5);
 
-    for (var i = 0; i < 7; i++) {
-      var skill = this.pet.skills[i];
-      var elementText = this.make.text({
-        x: 100,
-        y: 580 + (80 * i),
-        text: skill.element,
-        style: {
-          font: '40px monospace',
-          fill: '#ffffff'
-        }
-      });
-      var levelBar = this.add.graphics();
-      levelBar.fillStyle(0xffffff, 1);
-      levelBar.fillRect(300, 590 + (80 * i), skill.level * 2, 10);
-      var expBar = this.add.graphics();
-      expBar.fillStyle(0x00ff00, 1);
-      expBar.fillRect(300, 600 + (80 * i), skill.experience * 2, 10);
-
-      var levelText = this.make.text({
-        x: 600,
-        y: 580 + (80 * i),
-        text: 'Lvl ' + skill.level,
-        style: {
-          font: '40px monospace',
-          fill: '#ffffff'
-        }
-      });
-    }
+    this.updatePet();
 
     var startButton = this.add.sprite(384, 1200, 'StartButton').setInteractive();
     startButton.on('pointerdown', (pointer) => {
@@ -70,7 +30,8 @@ class PetScene extends Phaser.Scene {
   }
 
   update() {}
-  updatePet(direction) {
+
+  changePet(direction) {
     console.log(direction);
     var index = this.player.pets.indexOf(this.pet);
     if (direction == 'left') {
@@ -87,9 +48,59 @@ class PetScene extends Phaser.Scene {
       }
     }
     this.pet = this.player.pets[index];
+    this.updatePet();
+  }
+
+  updatePet() {
+    this.player.destroyElements();
     this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Player').setInteractive();
     this.pet.sprite.setScale(4);
     this.pet.sprite.setTint(this.pet.tint);
-    console.log(this);
+    var nameText = this.make.text({
+      x: this.width / 2,
+      y: 100,
+      text: this.pet.name,
+      style: {
+        font: '40px monospace',
+        fill: '#ffffff'
+      }
+    });
+    nameText.setOrigin(0.5, 0.5);
+    this.player.addElement('nameText', 'Text', nameText, true);
+    for (var i = 0; i < 7; i++) {
+      var skill = this.pet.skills[i];
+      var elementText = this.make.text({
+        x: 100,
+        y: 580 + (80 * i),
+        text: skill.element,
+        style: {
+          font: '40px monospace',
+          fill: '#ffffff'
+        }
+      });
+
+      var levelBar = this.add.graphics();
+      levelBar.fillStyle(0xffffff, 1);
+      levelBar.fillRect(300, 590 + (80 * i), skill.level * 2, 10);
+      var expBar = this.add.graphics();
+      expBar.fillStyle(0x00ff00, 1);
+      expBar.fillRect(300, 600 + (80 * i), skill.experience * 2, 10);
+
+      var levelText = this.make.text({
+        x: 600,
+        y: 580 + (80 * i),
+        text: 'Lvl ' + skill.level,
+        style: {
+          font: '40px monospace',
+          fill: '#ffffff'
+        }
+      });
+
+      this.player.addElement('levelText' + i, 'Text', levelText);
+      this.player.addElement('elementText' + i, 'Text', elementText);
+      this.player.addElement('levelBar' + i, 'Graphics', levelBar);
+      this.player.addElement('expBar' + i, 'Graphics', expBar);
+    }
   }
+
 }
