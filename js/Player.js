@@ -4,9 +4,12 @@ class Player {
     this.day = 1;
     this.pets = [];
     this.scene = scene;
-    this.activePet;
+
+    this.petSelect = false;
+    this.currentEvent;
     for (var i = 0; i < 4; i++) {
       this.pets.push(new Pet(scene));
     }
+    this.activePet = this.pets[0];
   }
 }

@@ -15,7 +15,11 @@ var game = new Phaser.Game({
     ArenaScene,
     TrainingScene,
     PetScene,
-    ShopScene
+    ShopScene,
+    FireTrainingScene,
+    WaterTrainingScene,
+    EarthTrainingScene,
+    AirTrainingScene
   ],
   physics: {
     default: 'arcade'

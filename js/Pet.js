@@ -4,7 +4,7 @@ class Pet {
 
     this.sprite;
     this.tint = Phaser.Math.Between(0, 16777215);
-    this.name = 'pet';
+    this.name = 'pet' + Phaser.Math.Between(0, 100);
     this.skills = [
       {
         element: 'Fire',

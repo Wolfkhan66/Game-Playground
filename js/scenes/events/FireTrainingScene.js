@@ -1,6 +1,6 @@
-class TrainingScene extends Phaser.Scene {
+class FireTrainingScene extends Phaser.Scene {
   constructor() {
-    super({key: 'TrainingScene'});
+    super({key: 'FireTrainingScene'});
   }
 
   preload() {}
@@ -11,22 +11,26 @@ class TrainingScene extends Phaser.Scene {
     var loadingText = this.make.text({
       x: 100,
       y: 100,
-      text: 'Training Scene',
+      text: 'Fire Training Scene',
       style: {
         font: '20px monospace',
         fill: '#ffffff'
       }
     });
+    this.player = this.registry.get('player');
 
     this.test = this.physics.add.sprite(width - 70, height - 70, 'Player').setInteractive();
     this.test.on('pointerdown', (pointer) => {
-      this.scene.start('MainScene');
+      this.player.activePet.skills.forEach(function(skill) {
+        if (skill.element == 'Fire') {
+          skill.level++;
+        }
+      })
+      this.scene.start('TrainingScene');
     });
 
   }
 
-  update() {
-    console.log("TrainingScene Update");
-  }
+  update() {}
 
 }
