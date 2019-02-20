@@ -8,8 +8,6 @@ class LoadingScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     var progressBar = this.add.graphics();
 
-    this.registry.set('player', new Player(this))
-
     var loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -63,6 +61,7 @@ class LoadingScene extends Phaser.Scene {
       this.scene.start('TitleScene');
     });
 
+    this.registry.set('player', new Player(this))
     this.backgroundColor = "#4488AA";
     this.load.image('StartButton', 'assets/StartButton.png');
     this.load.image('Player', 'assets/Player.png');
@@ -73,9 +72,5 @@ class LoadingScene extends Phaser.Scene {
     for (var i = 0; i < 2; i++) {
       this.load.image('Test' + i, 'assets/test.jpg');
     }
-  }
-
-  update() {
-    console.log("LoadingScene Update");
   }
 }
