@@ -16,6 +16,7 @@ var game = new Phaser.Game({
     TrainingScene,
     PetScene,
     ShopScene,
+    MarketPlaceScene,
     FireTrainingScene,
     WaterTrainingScene,
     EarthTrainingScene,

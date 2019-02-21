@@ -39,7 +39,7 @@ class ArenaScene extends Phaser.Scene {
     });
     var sprite2 = this.add.sprite(this.width - 70, this.height - 70, 'Player').setInteractive();
     sprite2.on('pointerdown', (pointer) => {
-      this.scene.start('ShopScene');
+      this.scene.start('MarketPlaceScene');
     });
     console.log("Creation complete.");
   }
