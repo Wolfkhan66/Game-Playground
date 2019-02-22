@@ -37,6 +37,7 @@ class MainScene extends Phaser.Scene {
       let pet = this.player.pets[i];
       pet.sprite = this.physics.add.sprite(384, 800 - (i * -60), 'Pet').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
+        this.player.lastScene = 'MainScene';
         this.player.activePet = pet;
         this.scene.start('PetScene');
       });

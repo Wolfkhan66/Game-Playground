@@ -22,9 +22,8 @@ class ArenaScene extends Phaser.Scene {
 
     this.racingSign = this.physics.add.sprite(100, 500, 'Pet').setInteractive();
     this.racingSign.on('pointerdown', (pointer) => {
-      this.player.petSelect = true;
-      this.player.currentEvent = 'RacingScene';
-      this.scene.start('PetScene');
+      this.player.currentEvent = 'RaceSelectScene';
+      this.scene.start('RaceSelectScene');
     });
     this.fightingSign = this.physics.add.sprite(this.width - 100, 500, 'Pet').setInteractive();
     this.fightingSign.on('pointerdown', (pointer) => {

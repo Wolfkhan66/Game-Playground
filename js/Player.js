@@ -6,6 +6,7 @@ class Player {
     this.scene = scene;
 
     this.petSelect = false;
+    this.lastScene;
     this.currentEvent;
     for (var i = 0; i < 4; i++) {
       this.pets.push(new Pet(scene));

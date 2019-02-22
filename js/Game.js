@@ -23,7 +23,9 @@ var game = new Phaser.Game({
     EarthTrainingScene,
     AirTrainingScene,
     FightingScene,
-    RacingScene
+    RacingScene,
+    RaceSelectScene,
+    RaceLevelSelectScene
   ],
   physics: {
     default: 'arcade'
