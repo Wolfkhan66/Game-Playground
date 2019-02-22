@@ -17,12 +17,32 @@ class TitleScene extends Phaser.Scene {
     });
     titleText.setOrigin(0.5, 0.5);
 
-    var startButton = this.add.sprite(384, 800, 'StartButton').setInteractive();
-    startButton.on('pointerdown', (pointer) => {
-      this.scene.start('MainScene', {player: this.player});
+    var testButton = this.make.text({
+      x: 384,
+      y: 800,
+      text: 'Start',
+      style: {
+        fontFamily: '"Roboto Condensed"',
+        font: '40px monospace',
+        fill: '#ffffff',
+        backgroundColor: '#ff00ff',
+        padding: {
+          x: 100,
+          y: 10
+        }
+      }
     });
-    startButton.setOrigin(0.5, 0.5);
-
+    testButton.setOrigin(0.5, 0.5);
+    testButton.setInteractive();
+    testButton.on('pointerout', (pointer) => {
+      testButton.setStyle({backgroundColor: '#ff00ff', fill: '#ffffff'});
+    });
+    testButton.on('pointerdown', (pointer) => {
+      testButton.setStyle({backgroundColor: '#ffffff', fill: '#ff00ff'});
+    });
+    testButton.on('pointerup', (pointer) => {
+      this.scene.start('MainScene');
+    });
   }
 
   update() {}
