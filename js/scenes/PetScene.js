@@ -24,7 +24,12 @@ class PetScene extends Phaser.Scene {
     if (this.player.petSelect) {
       var backButton = this.add.sprite(193, 1200, 'BackButton').setInteractive();
       backButton.on('pointerdown', (pointer) => {
-        this.scene.start('TrainingScene');
+        this.player.petSelect = false;
+        if (this.player.currentEvent.indexOf('TrainingScene') == -1) {
+          this.scene.start('ArenaScene');
+        } else {
+          this.scene.start('TrainingScene');
+        }
       });
       backButton.setOrigin(0.5, 0.5);
       var selectButton = this.add.sprite(575, 1200, 'SelectButton').setInteractive();
