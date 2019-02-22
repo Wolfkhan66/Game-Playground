@@ -20,24 +20,24 @@ class ArenaScene extends Phaser.Scene {
     });
     loadingText.setOrigin(0.5, 0.5);
 
-    this.racingSign = this.physics.add.sprite(100, 500, 'Player').setInteractive();
+    this.racingSign = this.physics.add.sprite(100, 500, 'Pet').setInteractive();
     this.racingSign.on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'RacingScene';
       this.scene.start('PetScene');
     });
-    this.fightingSign = this.physics.add.sprite(this.width - 100, 500, 'Player').setInteractive();
+    this.fightingSign = this.physics.add.sprite(this.width - 100, 500, 'Pet').setInteractive();
     this.fightingSign.on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'FightingScene';
       this.scene.start('PetScene');
     });
 
-    var sprite = this.add.sprite(70, this.height - 70, 'Player').setInteractive();
+    var sprite = this.add.sprite(70, this.height - 70, 'Pet').setInteractive();
     sprite.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
-    var sprite2 = this.add.sprite(this.width - 70, this.height - 70, 'Player').setInteractive();
+    var sprite2 = this.add.sprite(this.width - 70, this.height - 70, 'Pet').setInteractive();
     sprite2.on('pointerdown', (pointer) => {
       this.scene.start('MarketPlaceScene');
     });

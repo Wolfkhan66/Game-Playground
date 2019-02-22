@@ -1,6 +1,6 @@
-class WaterTrainingScene extends Phaser.Scene {
+class EarthTrainingScene extends Phaser.Scene {
   constructor() {
-    super({key: 'WaterTrainingScene'});
+    super({key: 'EarthTrainingScene'});
   }
 
   preload() {}
@@ -11,7 +11,7 @@ class WaterTrainingScene extends Phaser.Scene {
     var loadingText = this.make.text({
       x: 100,
       y: 100,
-      text: 'Water Training Scene',
+      text: 'Earth Training Scene',
       style: {
         font: '20px monospace',
         fill: '#ffffff'
@@ -19,10 +19,10 @@ class WaterTrainingScene extends Phaser.Scene {
     });
     this.player = this.registry.get('player');
 
-    this.test = this.physics.add.sprite(width - 70, height - 70, 'Player').setInteractive();
+    this.test = this.physics.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
     this.test.on('pointerdown', (pointer) => {
       this.player.activePet.skills.forEach(function(skill) {
-        if (skill.element == 'Water') {
+        if (skill.element == 'Earth') {
           skill.level++;
         }
       })

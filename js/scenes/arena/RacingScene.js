@@ -20,7 +20,7 @@ class RacingScene extends Phaser.Scene {
       }
     });
     this.player = this.registry.get('player');
-    this.player.activePet.sprite = this.physics.add.sprite(50, 800, 'Player');
+    this.player.activePet.sprite = this.physics.add.sprite(50, 800, 'Pet');
     this.player.activePet.sprite.setOrigin(0.5, 0.5);
     this.player.activePet.sprite.setTint(this.player.activePet.tint);
     this.cameras.main.startFollow(this.player.activePet.sprite, true);

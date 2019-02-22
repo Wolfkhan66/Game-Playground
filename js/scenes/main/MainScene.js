@@ -20,12 +20,12 @@ class MainScene extends Phaser.Scene {
     });
     titleText.setOrigin(0.5, 0.5);
 
-    var trainingSign = this.add.sprite(70, height - 70, 'Player').setInteractive();
+    var trainingSign = this.add.sprite(70, height - 70, 'Pet').setInteractive();
     trainingSign.on('pointerdown', (pointer) => {
       this.scene.start('TrainingScene');
     });
 
-    var arenaSign = this.add.sprite(width - 70, height - 70, 'Player').setInteractive();
+    var arenaSign = this.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
     arenaSign.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
@@ -35,7 +35,7 @@ class MainScene extends Phaser.Scene {
 
     for (var i = 0; i < this.player.pets.length; i++) {
       let pet = this.player.pets[i];
-      pet.sprite = this.physics.add.sprite(384, 800 - (i * -60), 'Player').setInteractive();
+      pet.sprite = this.physics.add.sprite(384, 800 - (i * -60), 'Pet').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
         this.player.activePet = pet;
         this.scene.start('PetScene');

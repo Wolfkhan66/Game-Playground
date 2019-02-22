@@ -20,12 +20,12 @@ class MarketPlaceScene extends Phaser.Scene {
     });
     titleText.setOrigin(0.5, 0.5);
 
-    var sprite = this.add.sprite(70, height - 70, 'Player').setInteractive();
+    var sprite = this.add.sprite(70, height - 70, 'Pet').setInteractive();
     sprite.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
     for (var i = 0; i < 3; i++) {
-      var shop = this.add.sprite(384, 800 - (i * -60), 'Player').setInteractive();
+      var shop = this.add.sprite(384, 800 - (i * -60), 'Pet').setInteractive();
       shop.on('pointerdown', (pointer) => {
         this.scene.start('ShopScene');
       });

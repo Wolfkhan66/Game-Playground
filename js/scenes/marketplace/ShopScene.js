@@ -17,7 +17,7 @@ class ShopScene extends Phaser.Scene {
       }
     });
     loadingText.setOrigin(0.5, 0.5);
-    var sprite = this.add.sprite(70, height - 70, 'Player').setInteractive();
+    var sprite = this.add.sprite(70, height - 70, 'Pet').setInteractive();
     sprite.on('pointerdown', (pointer) => {
       this.scene.start('MarketPlaceScene');
     });
