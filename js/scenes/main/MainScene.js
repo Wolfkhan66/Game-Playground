@@ -31,7 +31,11 @@ class MainScene extends Phaser.Scene {
     });
 
     this.player = this.registry.get('player');
-    this.player.scene = this;
+
+    var test = utility.createButton(this, 100, 400, 600, 'Pet');
+    test.getChildren()[2].on('pointerdown', (pointer) => {
+      this.scene.start('ArenaScene');
+    });
 
     for (var i = 0; i < this.player.pets.length; i++) {
       let pet = this.player.pets[i];
@@ -44,6 +48,7 @@ class MainScene extends Phaser.Scene {
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(this.player.pets[i].tint);
     }
+
   }
 
   update() {}
