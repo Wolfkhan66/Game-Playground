@@ -13,6 +13,7 @@ var game = new Phaser.Game({
     LoadingScene,
     TitleScene,
     MainScene,
+    ResultsScene,
     UIScene,
     ArenaScene,
     TrainingScene,

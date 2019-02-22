@@ -25,7 +25,7 @@ class EarthTrainingScene extends Phaser.Scene {
           skill.level++;
         }
       })
-      this.scene.start('TrainingScene');
+      this.scene.start('ResultsScene');
     });
   }
 

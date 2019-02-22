@@ -30,7 +30,8 @@ class RacingScene extends Phaser.Scene {
     this.continueButton = utility.createTextButton(this, 150, 1150, 500, 'Continue');
     this.continueButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.currency += 10;
-      this.scene.start('ArenaScene');
+      this.player.lastScene = 'ArenaScene'
+      this.scene.start('ResultsScene');
     });
     this.continueButton.getChildren().forEach(function(child) {
       child.setScrollFactor(0);
