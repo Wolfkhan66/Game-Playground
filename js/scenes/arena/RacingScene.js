@@ -9,17 +9,17 @@ class RacingScene extends Phaser.Scene {
     this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
     this.cameras.main.setBounds(0, 0, this.width * 2, height);
-
+    this.player = this.registry.get('player');
     var loadingText = this.make.text({
       x: 100,
       y: 100,
-      text: 'Racing Scene',
+      text: 'Racing Scene ' + this.player.activeRace.name + this.player.activeLevel,
       style: {
         font: '20px monospace',
         fill: '#ffffff'
       }
     });
-    this.player = this.registry.get('player');
+
     this.player.activePet.sprite = this.physics.add.sprite(50, 800, 'Pet');
     this.player.activePet.sprite.setOrigin(0.5, 0.5);
     this.player.activePet.sprite.setTint(this.player.activePet.tint);
