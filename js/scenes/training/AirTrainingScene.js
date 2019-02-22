@@ -19,8 +19,8 @@ class AirTrainingScene extends Phaser.Scene {
     });
     this.player = this.registry.get('player');
 
-    this.test = this.physics.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
-    this.test.on('pointerdown', (pointer) => {
+    this.continueButton = utility.createTextButton(this, 150, 1150, 500, 'Continue');
+    this.continueButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.activePet.skills.forEach(function(skill) {
         if (skill.element == 'Air') {
           skill.level++;
@@ -28,7 +28,6 @@ class AirTrainingScene extends Phaser.Scene {
       })
       this.scene.start('TrainingScene');
     });
-
   }
 
   update() {}

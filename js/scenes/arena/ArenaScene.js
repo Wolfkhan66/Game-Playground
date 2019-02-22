@@ -10,27 +10,28 @@ class ArenaScene extends Phaser.Scene {
     this.height = this.cameras.main.height;
     console.log("Creating World...");
 
-    this.racingSign = this.physics.add.sprite(100, 500, 'Pet').setInteractive();
-    this.racingSign.on('pointerdown', (pointer) => {
+    var racingButton = utility.createTextButton(this, 25, 500, 350, 'Racing');
+    racingButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.currentEvent = 'RaceSelectScene';
       this.scene.start('RaceSelectScene');
     });
-    this.fightingSign = this.physics.add.sprite(this.width - 100, 500, 'Pet').setInteractive();
-    this.fightingSign.on('pointerdown', (pointer) => {
+
+    var fightingButton = utility.createTextButton(this, 425, 500, 350, 'Fighting');
+    fightingButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'FightingScene';
       this.scene.start('PetScene');
     });
 
-    var sprite = this.add.sprite(70, this.height - 70, 'Pet').setInteractive();
-    sprite.on('pointerdown', (pointer) => {
+    var homeButton = utility.createTextButton(this, 25, 1150, 350, 'Home');
+    homeButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
-    var sprite2 = this.add.sprite(this.width - 70, this.height - 70, 'Pet').setInteractive();
-    sprite2.on('pointerdown', (pointer) => {
+
+    var marketButton = utility.createTextButton(this, 425, 1150, 350, 'Market');
+    marketButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('MarketPlaceScene');
     });
-    console.log("Creation complete.");
   }
 
   update() {

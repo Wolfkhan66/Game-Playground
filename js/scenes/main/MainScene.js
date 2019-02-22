@@ -10,13 +10,12 @@ class MainScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
 
-    var trainingSign = this.add.sprite(70, height - 70, 'Pet').setInteractive();
-    trainingSign.on('pointerdown', (pointer) => {
+    var trainingButton = utility.createTextButton(this, 25, 1150, 350, 'Training');
+    trainingButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('TrainingScene');
     });
-
-    var arenaSign = this.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
-    arenaSign.on('pointerdown', (pointer) => {
+    var arenaButton = utility.createTextButton(this, 425, 1150, 350, 'Arena');
+    arenaButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
 

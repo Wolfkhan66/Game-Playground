@@ -10,37 +10,39 @@ class TrainingScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     this.player = this.registry.get('player');
 
-    this.fire = this.physics.add.sprite(100, 500, 'Pet').setInteractive();
-    this.fire.on('pointerdown', (pointer) => {
+    var fireButton = utility.createTextButton(this, 25, 500, 350, 'Fire');
+    fireButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'FireTrainingScene';
       this.player.lastScene = 'TrainingScene';
       this.scene.start('PetScene');
     });
-    this.water = this.physics.add.sprite(width - 100, 500, 'Pet').setInteractive();
-    this.water.on('pointerdown', (pointer) => {
+
+    var waterButton = utility.createTextButton(this, 425, 500, 350, 'Water');
+    waterButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'WaterTrainingScene';
       this.player.lastScene = 'TrainingScene';
       this.scene.start('PetScene');
     });
-    this.air = this.physics.add.sprite(100, 700, 'Pet').setInteractive();
-    this.air.on('pointerdown', (pointer) => {
+
+    var airButton = utility.createTextButton(this, 25, 700, 350, 'Air');
+    airButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'AirTrainingScene';
       this.player.lastScene = 'TrainingScene';
       this.scene.start('PetScene');
     });
-    this.earth = this.physics.add.sprite(width - 100, 700, 'Pet').setInteractive();
-    this.earth.on('pointerdown', (pointer) => {
+    var earthButton = utility.createTextButton(this, 425, 700, 350, 'Earth');
+    earthButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.player.petSelect = true;
       this.player.currentEvent = 'EarthTrainingScene';
       this.player.lastScene = 'TrainingScene';
       this.scene.start('PetScene');
     });
 
-    this.test = this.physics.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
-    this.test.on('pointerdown', (pointer) => {
+    var homeButton = utility.createTextButton(this, 425, 1150, 350, 'Home');
+    homeButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
 
