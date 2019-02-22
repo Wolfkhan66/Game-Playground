@@ -20,16 +20,16 @@ class Player {
         name: "Fire",
         levels: [
           {
-            name: "1",
+            name: "Lava Pool",
             complete: false
           }, {
-            name: "2",
+            name: "Lake of Fire",
             complete: false
           }, {
-            name: "3",
+            name: "Scolville Canyon",
             complete: false
           }, {
-            name: "4",
+            name: "Mount Despair",
             complete: false
           }
         ]
@@ -37,16 +37,16 @@ class Player {
         name: "Earth",
         levels: [
           {
-            name: "1",
+            name: "Faerie Glenn",
             complete: false
           }, {
-            name: "2",
+            name: "Forest of Souls",
             complete: false
           }, {
-            name: "3",
+            name: "Seedling Circle",
             complete: false
           }, {
-            name: "4",
+            name: "Magic Meadow",
             complete: false
           }
         ]
@@ -54,16 +54,16 @@ class Player {
         name: "Water",
         levels: [
           {
-            name: "1",
+            name: "Rock Pool",
             complete: false
           }, {
-            name: "2",
+            name: "Reviving River",
             complete: false
           }, {
-            name: "3",
+            name: "Spirit Rapids",
             complete: false
           }, {
-            name: "4",
+            name: "Mighty Ocean",
             complete: false
           }
         ]
@@ -71,16 +71,16 @@ class Player {
         name: "Air",
         levels: [
           {
-            name: "1",
+            name: "Breezy Hollow",
             complete: false
           }, {
-            name: "2",
+            name: "Windy Willows",
             complete: false
           }, {
-            name: "3",
+            name: "Gusty Gallows",
             complete: false
           }, {
-            name: "4",
+            name: "Enchanted Storm",
             complete: false
           }
         ]

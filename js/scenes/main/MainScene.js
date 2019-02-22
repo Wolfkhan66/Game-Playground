@@ -9,16 +9,6 @@ class MainScene extends Phaser.Scene {
     this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    var titleText = this.make.text({
-      x: 100,
-      y: 100,
-      text: 'Main Scene',
-      style: {
-        font: '20px monospace',
-        fill: '#ffffff'
-      }
-    });
-    titleText.setOrigin(0.5, 0.5);
 
     var trainingSign = this.add.sprite(70, height - 70, 'Pet').setInteractive();
     trainingSign.on('pointerdown', (pointer) => {
@@ -31,11 +21,6 @@ class MainScene extends Phaser.Scene {
     });
 
     this.player = this.registry.get('player');
-
-    var test = utility.createButton(this, 100, 400, 600, 'Pet');
-    test.getChildren()[2].on('pointerdown', (pointer) => {
-      this.scene.start('ArenaScene');
-    });
 
     for (var i = 0; i < this.player.pets.length; i++) {
       let pet = this.player.pets[i];

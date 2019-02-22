@@ -22,27 +22,24 @@ class PetScene extends Phaser.Scene {
 
     this.updatePet();
     if (this.player.petSelect) {
-      var backButton = this.add.sprite(193, 1200, 'BackButton').setInteractive();
-      backButton.on('pointerdown', (pointer) => {
+      var backButton = utility.createTextButton(this, 75, 1150, 300, 'Back');
+      backButton.getChildren()[2].on('pointerdown', (pointer) => {
         this.player.petSelect = false;
         this.scene.start(this.player.lastScene);
       });
-      backButton.setOrigin(0.5, 0.5);
-      var selectButton = this.add.sprite(575, 1200, 'SelectButton').setInteractive();
-      selectButton.on('pointerdown', (pointer) => {
+      var selectButton = utility.createTextButton(this, 425, 1150, 300, 'Select');
+      selectButton.getChildren()[2].on('pointerdown', (pointer) => {
         this.player.activePet = this.pet;
         this.player.petSelect = false;
         this.scene.start(this.player.currentEvent);
       });
-      selectButton.setOrigin(0.5, 0.5);
 
     } else {
-      var backButton = this.add.sprite(384, 1200, 'BackButton').setInteractive();
-      backButton.on('pointerdown', (pointer) => {
+
+      var backButton = utility.createTextButton(this, 250, 1150, 300, 'Back');
+      backButton.getChildren()[2].on('pointerdown', (pointer) => {
         this.scene.start('MainScene');
       });
-      backButton.setOrigin(0.5, 0.5);
-
     }
 
   }

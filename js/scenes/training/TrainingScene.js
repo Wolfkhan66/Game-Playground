@@ -9,15 +9,6 @@ class TrainingScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     this.player = this.registry.get('player');
-    var loadingText = this.make.text({
-      x: 100,
-      y: 100,
-      text: 'Training Scene',
-      style: {
-        font: '20px monospace',
-        fill: '#ffffff'
-      }
-    });
 
     this.fire = this.physics.add.sprite(100, 500, 'Pet').setInteractive();
     this.fire.on('pointerdown', (pointer) => {
