@@ -64,6 +64,8 @@ class LoadingScene extends Phaser.Scene {
     this.registry.set('player', new Player(this))
     this.backgroundColor = "#4488AA";
     this.load.image('StartButton', 'assets/StartButton.png');
+    this.load.image('BackButton', 'assets/BackButton.png');
+    this.load.image('SelectButton', 'assets/SelectButton.png');
     this.load.image('Player', 'assets/Player.png');
     this.load.image('Rock', 'assets/Rock.png');
     this.load.image('Tile', 'assets/Tile.png');

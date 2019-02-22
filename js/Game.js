@@ -4,7 +4,7 @@ var game = new Phaser.Game({
     parent: 'game',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 768,
+    width: 800,
     height: 1280
   },
   backgroundColor: '#3498db',
@@ -12,6 +12,7 @@ var game = new Phaser.Game({
     LoadingScene,
     TitleScene,
     MainScene,
+    UIScene,
     ArenaScene,
     TrainingScene,
     PetScene,

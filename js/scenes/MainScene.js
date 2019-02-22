@@ -6,9 +6,9 @@ class MainScene extends Phaser.Scene {
   preload() {}
 
   create() {
+    this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-
     var titleText = this.make.text({
       x: 100,
       y: 100,
@@ -30,23 +30,19 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
 
-    var player = this.registry.get('player');
-    player.scene = this;
+    this.player = this.registry.get('player');
+    this.player.scene = this;
 
-    for (var i = 0; i < player.pets.length; i++) {
-      let pet = player.pets[i];
-      pet.sprite = this.add.sprite(384, 800 - (i * -60), 'Player').setInteractive();
-      pet.sprite.on('pointerdown', (pointer) => {
-        player.activePet = pet;
+    for (var i = 0; i < this.player.pets.length; i++) {
+      this.player.pets[i].sprite = this.physics.add.sprite(384, 800 - (i * -60), 'Player').setInteractive();
+      this.player.pets[i].sprite.on('pointerdown', (pointer) => {
+        this.player.activePet = this.player.pets[i];
         this.scene.start('PetScene');
       });
-      pet.sprite.setOrigin(0.5, 0.5);
-      pet.sprite.setTint(pet.tint);
+      this.player.pets[i].sprite.setOrigin(0.5, 0.5);
+      this.player.pets[i].sprite.setTint(this.player.pets[i].tint);
     }
   }
 
-  update() {
-    console.log("MainScene Update");
-
-  }
+  update() {}
 }
