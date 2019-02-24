@@ -7,7 +7,7 @@ class MainScene extends Phaser.Scene {
 
   create() {
     this.scene.launch('UIScene');
-    var width / 2 = this.cameras.main.width;
+    var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     var trainingButton = utility.createTextButton(this, 25, 1150, 350, 'Training');
     trainingButton.getChildren()[2].on('pointerdown', (pointer) => {
