@@ -18,7 +18,19 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
 
-    this.anims.create({key: 'walkLeft', frames: this.anims.generateFrameNames('PetAtlas'), frameRate: 5, repeat: -1});
+    var frameNames = this.anims.generateFrameNames('PetAtlas');
+    var walkingFrames = frameNames.filter(function(frame) {
+      return frame.frame.includes('WalkingLeft');
+    }).sort(function(a, b) {
+      return a.frame.localeCompare(b.frame, undefined, {
+        numeric: true,
+        sensitivity: 'base'
+      });
+    });
+
+    console.log(walkingFrames);
+
+    this.anims.create({key: 'walkLeft', frames: walkingFrames, frameRate: 5, repeat: -1});
     this.player = this.registry.get('player');
     var path = new Phaser.Curves.Line([100, 100, 500, 200]);
     for (var i = 0; i < this.player.pets.length; i++) {
