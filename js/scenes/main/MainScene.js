@@ -7,9 +7,8 @@ class MainScene extends Phaser.Scene {
 
   create() {
     this.scene.launch('UIScene');
-    var width = this.cameras.main.width;
+    var width / 2 = this.cameras.main.width;
     var height = this.cameras.main.height;
-
     var trainingButton = utility.createTextButton(this, 25, 1150, 350, 'Training');
     trainingButton.getChildren()[2].on('pointerdown', (pointer) => {
       this.scene.start('TrainingScene');
@@ -19,11 +18,39 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
 
+    this.anims.create({key: 'walkLeft', frames: this.anims.generateFrameNames('PetAtlas'), frameRate: 5, repeat: -1});
     this.player = this.registry.get('player');
     var path = new Phaser.Curves.Line([100, 100, 500, 200]);
     for (var i = 0; i < this.player.pets.length; i++) {
+      var x = Phaser.Math.Between(100, 700);
+      var y = Phaser.Math.Between(100, 1100);
       let pet = this.player.pets[i];
-      pet.sprite = this.physics.add.sprite(384, 800 - (i * -60), 'Pet').setInteractive();
+      pet.light = this.add.particles('Particle').createEmitter({
+        x: x,
+        y: y,
+        quantity: 50,
+        gravityY: -30,
+        scale: {
+          start: 0.4,
+          end: 0,
+          ease: 'Linear'
+        },
+        tint: pet.tint,
+        speed: {
+          min: -100,
+          max: -100
+        },
+        alpha: {
+          start: 0.1,
+          end: 0,
+          ease: 'Linear'
+        },
+        angle: {
+          min: 0,
+          max: 360
+        }
+      });
+      pet.sprite = this.physics.add.sprite(x, y, 'PetAtlas').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
         this.player.lastScene = 'MainScene';
         this.player.activePet = pet;
@@ -31,17 +58,21 @@ class MainScene extends Phaser.Scene {
       });
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(this.player.pets[i].tint);
+      pet.sprite.setScale(1.5);
+      pet.sprite.play('walkLeft');
       this.move(pet);
     }
   }
 
   update() {
     for (var i = 0; i < this.player.pets.length; i++) {
-      if (this.player.pets[i].sprite.body.speed > 0) {
-        let distance = Phaser.Math.Distance.Between(this.player.pets[i].sprite.x, this.player.pets[i].sprite.y, this.player.pets[i].target.x, this.player.pets[i].target.y);
+      let pet = this.player.pets[i];
+      pet.light.setPosition(pet.sprite.x, pet.sprite.y);
+      if (pet.sprite.body.speed > 0) {
+        let distance = Phaser.Math.Distance.Between(pet.sprite.x, pet.sprite.y, pet.target.x, pet.target.y);
         if (distance < 4) {
-          this.player.pets[i].sprite.body.reset(this.player.pets[i].target.x, this.player.pets[i].target.y);
-          this.move(this.player.pets[i]);
+          this.player.pets[i].sprite.body.reset(pet.target.x, pet.target.y);
+          this.move(pet);
         }
       }
     }
@@ -55,6 +86,13 @@ class MainScene extends Phaser.Scene {
       delay: Phaser.Math.Between(2000, 5000),
       callback: function() {
         this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50)
+        if (pet.target.x > pet.sprite.x) {
+          if (!pet.sprite.flipX) {
+            pet.sprite.setFlip(true);
+          }
+        } else {
+          pet.sprite.setFlip(false);
+        }
       },
       callbackScope: this,
       loop: false

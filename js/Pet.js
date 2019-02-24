@@ -5,6 +5,8 @@ class Pet {
     this.sprite;
     this.tint = Phaser.Math.Between(0, 16777215);
     this.name = 'pet' + Phaser.Math.Between(0, 100);
+    this.light;
+    this.hatched = 0;
     this.target = {
       x: 0,
       y: 0

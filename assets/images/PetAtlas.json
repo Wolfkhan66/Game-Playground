@@ -1,0 +1,230 @@
+{
+	"textures": [
+		{
+			"image": "PetAtlas.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 38,
+				"h": 450
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "WalkingLeft/1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					}
+				},
+				{
+					"filename": "WalkingLeft/2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 46
+					},
+					"frame": {
+						"x": 0,
+						"y": 44,
+						"w": 38,
+						"h": 46
+					}
+				},
+				{
+					"filename": "WalkingLeft/3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					},
+					"frame": {
+						"x": 0,
+						"y": 90,
+						"w": 38,
+						"h": 44
+					}
+				},
+				{
+					"filename": "WalkingLeft/4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 46
+					},
+					"frame": {
+						"x": 0,
+						"y": 134,
+						"w": 38,
+						"h": 46
+					}
+				},
+				{
+					"filename": "WalkingLeft/5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					},
+					"frame": {
+						"x": 0,
+						"y": 180,
+						"w": 38,
+						"h": 44
+					}
+				},
+				{
+					"filename": "WalkingLeft/6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 46
+					},
+					"frame": {
+						"x": 0,
+						"y": 224,
+						"w": 38,
+						"h": 46
+					}
+				},
+				{
+					"filename": "WalkingLeft/7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					},
+					"frame": {
+						"x": 0,
+						"y": 270,
+						"w": 38,
+						"h": 44
+					}
+				},
+				{
+					"filename": "WalkingLeft/8.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 46
+					},
+					"frame": {
+						"x": 0,
+						"y": 314,
+						"w": 38,
+						"h": 46
+					}
+				},
+				{
+					"filename": "WalkingLeft/9.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 44
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 44
+					},
+					"frame": {
+						"x": 0,
+						"y": 360,
+						"w": 38,
+						"h": 44
+					}
+				},
+				{
+					"filename": "WalkingLeft/10.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 38,
+						"h": 46
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 38,
+						"h": 46
+					},
+					"frame": {
+						"x": 0,
+						"y": 404,
+						"w": 38,
+						"h": 46
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:95ad8c894c925b116b91cdf97ea4c981:ddca3e4294724c7c9bdc99d8b90b9312:79befe6a04e2a35afe23f4e91e089f88$"
+	}
+}
