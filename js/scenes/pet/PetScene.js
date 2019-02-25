@@ -66,7 +66,7 @@ class PetScene extends Phaser.Scene {
 
   updatePet() {
     this.petInfo.clear(true, true);
-    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'Pet').setInteractive();
+    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'PetAtlas', 'Idle/Standing/Down/1.png').setInteractive();
     this.pet.sprite.setScale(4);
     this.pet.sprite.setTint(this.pet.tint);
     var nameText = this.make.text({
