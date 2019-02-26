@@ -75,7 +75,7 @@ class Pet {
     pet.target.x = Phaser.Math.Between(100, 700);
     pet.target.y = Phaser.Math.Between(100, 1100);
     pet.timedEvent = scene.time.addEvent({
-      delay: Phaser.Math.Between(2000, 5000),
+      delay: Phaser.Math.Between(5000, 10000),
       callback: function() {
         this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50)
         pet.sprite.play('walkLeft');

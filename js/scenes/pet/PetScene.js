@@ -46,8 +46,9 @@ class PetScene extends Phaser.Scene {
   update() {}
 
   changePet(direction) {
-    console.log(direction);
+
     var index = this.player.pets.indexOf(this.pet);
+    console.log(index);
     if (direction == 'left') {
       if (index == 0) {
         index = this.player.pets.length - 1;
@@ -55,19 +56,20 @@ class PetScene extends Phaser.Scene {
         index--;
       }
     } else {
-      if (index == 3) {
+      if (index == this.player.pets.length - 1) {
         index = 0;
       } else {
         index++;
       }
     }
+    this.pet.sprite.destroy();
     this.pet = this.player.pets[index];
     this.updatePet();
   }
 
   updatePet() {
     this.petInfo.clear(true, true);
-    this.pet.sprite = this.physics.add.sprite(this.width / 2, 300, 'PetAtlas', 'Idle/Standing/Down/1.png').setInteractive();
+    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'PetAtlas', 'Idle/Standing/Down/1.png').setInteractive();
     this.pet.sprite.setScale(4);
     this.pet.sprite.setTint(this.pet.tint);
     this.pet.chooseAnimation('petScene');

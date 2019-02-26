@@ -81,7 +81,6 @@ class Utility {
 
   createAnimations(scene) {
     var frameNames = scene.anims.generateFrameNames('PetAtlas');
-    console.log(frameNames);
     scene.anims.create({
       key: 'walkLeft',
       frames: this.getFrames('WalkingLeft', frameNames),
