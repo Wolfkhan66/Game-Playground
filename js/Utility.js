@@ -85,7 +85,7 @@ class Utility {
     scene.anims.create({
       key: 'walkLeft',
       frames: this.getFrames('WalkingLeft', frameNames),
-      frameRate: 5,
+      frameRate: 4,
       repeat: -1
     });
     scene.anims.create({
@@ -115,17 +115,23 @@ class Utility {
     scene.anims.create({
       key: 'thinking',
       frames: this.getFrames('Thinking', frameNames),
-      frameRate: 5,
+      frameRate: 3,
       repeat: -1
     });
     scene.anims.create({
       key: 'standDown',
       frames: this.getFrames('Standing/Down', frameNames),
-      frameRate: 5,
+      frameRate: 2,
       repeat: -1
     });
     scene.anims.create({
       key: 'standLeft',
+      frames: this.getFrames('Standing/Left', frameNames),
+      frameRate: 5,
+      repeat: -1
+    });
+    scene.anims.create({
+      key: 'standRight',
       frames: this.getFrames('Standing/Left', frameNames),
       frameRate: 5,
       repeat: -1
@@ -139,13 +145,19 @@ class Utility {
     scene.anims.create({
       key: 'sittingDown',
       frames: this.getFrames('Sitting/Down', frameNames),
-      frameRate: 5,
+      frameRate: 2,
       repeat: -1
     });
     scene.anims.create({
       key: 'sittingLeft',
       frames: this.getFrames('Sitting/Left', frameNames),
-      frameRate: 5,
+      frameRate: 2,
+      repeat: -1
+    });
+    scene.anims.create({
+      key: 'sittingRight',
+      frames: this.getFrames('Sitting/Left', frameNames),
+      frameRate: 2,
       repeat: -1
     });
     scene.anims.create({

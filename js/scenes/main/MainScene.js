@@ -35,7 +35,7 @@ class MainScene extends Phaser.Scene {
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
       pet.sprite.setScale(1);
-      pet.sprite.play('walkLeft');
+      pet.chooseAnimation('idle');
       pet.move(this);
     }
   }

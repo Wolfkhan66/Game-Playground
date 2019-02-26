@@ -6,6 +6,7 @@ class PetScene extends Phaser.Scene {
   preload() {}
 
   create() {
+    utility.createAnimations(this);
     this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
     this.player = this.registry.get('player');
@@ -66,9 +67,11 @@ class PetScene extends Phaser.Scene {
 
   updatePet() {
     this.petInfo.clear(true, true);
-    this.pet.sprite = this.add.sprite(this.width / 2, 300, 'PetAtlas', 'Idle/Standing/Down/1.png').setInteractive();
+    this.pet.sprite = this.physics.add.sprite(this.width / 2, 300, 'PetAtlas', 'Idle/Standing/Down/1.png').setInteractive();
     this.pet.sprite.setScale(4);
     this.pet.sprite.setTint(this.pet.tint);
+    this.pet.chooseAnimation('petScene');
+
     var nameText = this.make.text({
       x: this.width / 2,
       y: 100,

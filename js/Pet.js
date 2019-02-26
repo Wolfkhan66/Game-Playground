@@ -1,9 +1,23 @@
 class Pet {
   constructor() {
     this.sprite;
-    this.tint = Phaser.Math.Between(0, 16777215);
+    var hsv = Phaser.Display.Color.HSVColorWheel();
+    var colour = hsv[Phaser.Math.Between(0, 20) * 10].color;
+    this.tint = colour;
     this.name = 'pet' + Phaser.Math.Between(0, 100);
     this.light;
+    this.idleAnimations = [
+      'thinking',
+      'standDown',
+      'standLeft',
+      'standRight',
+      'standUp',
+      'sittingDown',
+      'sittingLeft',
+      'sittingRight',
+      'wave'
+    ];
+    this.petSceneAnimations = ['thinking', 'standDown', 'content', 'sittingDown', 'wave'];
     this.hatched = 0;
     this.target = {
       x: 0,
@@ -49,6 +63,7 @@ class Pet {
       let distance = Phaser.Math.Distance.Between(this.sprite.x, this.sprite.y, this.target.x, this.target.y);
       if (distance < 4) {
         this.sprite.body.reset(this.target.x, this.target.y);
+        this.chooseAnimation('idle');
         this.move(scene);
       }
     }
@@ -63,6 +78,7 @@ class Pet {
       delay: Phaser.Math.Between(2000, 5000),
       callback: function() {
         this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50)
+        pet.sprite.play('walkLeft');
         if (pet.target.x > pet.sprite.x) {
           if (!pet.sprite.flipX) {
             pet.sprite.setFlip(true);
@@ -74,5 +90,26 @@ class Pet {
       callbackScope: scene,
       loop: false
     });
+  }
+
+  chooseAnimation(group) {
+    var animation;
+    switch (group) {
+      case 'idle':
+        animation = this.idleAnimations[Phaser.Math.Between(0, 6)];
+        break;
+      case 'petScene':
+        animation = this.petSceneAnimations[Phaser.Math.Between(0, 4)];
+        break;
+      default:
+
+    }
+
+    this.sprite.play(animation);
+    if (animation == 'standRight' || animation == 'sittingRight') {
+      this.sprite.setFlip(true);
+    } else {
+      this.sprite.setFlip(false);
+    }
   }
 }
