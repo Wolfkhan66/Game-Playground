@@ -8,7 +8,7 @@ var game = new Phaser.Game({
     width: 800,
     height: 1280
   },
-  backgroundColor: '#4488AA',
+  backgroundColor: '#8cc656',
   scene: [
     LoadingScene,
     TitleScene,

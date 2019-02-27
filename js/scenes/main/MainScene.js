@@ -38,6 +38,12 @@ class MainScene extends Phaser.Scene {
       pet.chooseAnimation('idle');
       pet.move(this);
     }
+
+    for (var i = 0; i < 200; i++) {
+      var grass = this.physics.add.sprite(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 1280), 'Grass');
+      grass.setDepth(grass.y - 17);
+      grass.setScale(0.5)
+    }
   }
 
   update() {
