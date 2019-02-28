@@ -41,11 +41,11 @@ class TrainingScene extends Phaser.Scene {
       this.scene.start('PetScene');
     });
 
-    var homeButton = utility.createTextButton(this, 425, 1150, 350, 'Home');
-    homeButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var homeButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
+    homeButton.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
-
+    homeButton.setFlip(true);
   }
 
   update() {

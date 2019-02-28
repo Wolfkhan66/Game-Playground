@@ -9,8 +9,8 @@ class MarketPlaceScene extends Phaser.Scene {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
 
-    var arenaButton = utility.createTextButton(this, 25, 1150, 350, 'Arena');
-    arenaButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var arenaButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
+    arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
 

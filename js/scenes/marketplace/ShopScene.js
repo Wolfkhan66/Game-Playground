@@ -7,11 +7,11 @@ class ShopScene extends Phaser.Scene {
   create() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-
-    var marketButton = utility.createTextButton(this, 25, 1150, 350, 'Market');
-    marketButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var marketButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
+    marketButton.on('pointerdown', (pointer) => {
       this.scene.start('MarketPlaceScene');
     });
+
   }
 
   update() {}

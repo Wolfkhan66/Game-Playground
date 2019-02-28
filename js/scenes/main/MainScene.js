@@ -9,14 +9,16 @@ class MainScene extends Phaser.Scene {
     this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    var trainingButton = utility.createTextButton(this, 25, 1150, 350, 'Training');
-    trainingButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var trainingButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
+    trainingButton.on('pointerdown', (pointer) => {
       this.scene.start('TrainingScene');
     });
-    var arenaButton = utility.createTextButton(this, 425, 1150, 350, 'Arena');
-    arenaButton.getChildren()[2].on('pointerdown', (pointer) => {
+
+    var arenaButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
+    arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
+    arenaButton.setFlip(true);
 
     this.player = this.registry.get('player');
     utility.createAnimations(this);
@@ -39,7 +41,7 @@ class MainScene extends Phaser.Scene {
       pet.move(this);
     }
 
-    for (var i = 0; i < 200; i++) {
+    for (var i = 0; i < 20; i++) {
       var grass = this.physics.add.sprite(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 1280), 'Grass');
       grass.setDepth(grass.y - 17);
       grass.setScale(0.5)

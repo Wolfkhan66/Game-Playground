@@ -22,16 +22,17 @@ class ArenaScene extends Phaser.Scene {
       this.player.currentEvent = 'FightingScene';
       this.scene.start('PetScene');
     });
-
-    var homeButton = utility.createTextButton(this, 25, 1150, 350, 'Home');
-    homeButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var homeButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
+    homeButton.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
 
-    var marketButton = utility.createTextButton(this, 425, 1150, 350, 'Market');
-    marketButton.getChildren()[2].on('pointerdown', (pointer) => {
+    var marketButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
+    marketButton.on('pointerdown', (pointer) => {
       this.scene.start('MarketPlaceScene');
     });
+    marketButton.setFlip(true);
+
   }
 
   update() {
