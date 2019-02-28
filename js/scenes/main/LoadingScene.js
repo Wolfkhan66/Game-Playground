@@ -66,7 +66,9 @@ class LoadingScene extends Phaser.Scene {
     utility.plyaer = player;
     this.registry.set('player', player);
     this.load.image('Particle', 'assets/images/Particle.png');
+    this.load.image('ArenaIcon', 'assets/images/ArenaIcon.png');
     this.load.image('TrainingIcon', 'assets/images/TrainingIcon.png');
+    this.load.image('ShopIcon', 'assets/images/ShopIcon.png');
     this.load.image('Grass', 'assets/images/Grass1.png');
     this.load.image('Signpost', 'assets/images/Signpost2.png');
     this.load.atlas('PetAtlas', 'assets/images/PetAtlas.png', 'assets/images/PetAtlas.json');

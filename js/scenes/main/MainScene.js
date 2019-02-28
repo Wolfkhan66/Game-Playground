@@ -23,7 +23,11 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
     arenaButton.setFlip(true);
-
+    var arenaIcon = this.physics.add.sprite(700, 1150, 'ArenaIcon').setInteractive();
+    arenaIcon.on('pointerdown', (pointer) => {
+      this.scene.start('ArenaScene');
+    });
+    arenaIcon.setScale(1.5);
     this.player = this.registry.get('player');
     utility.createAnimations(this);
     var path = new Phaser.Curves.Line([100, 100, 500, 200]);

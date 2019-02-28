@@ -36,7 +36,10 @@ class ArenaScene extends Phaser.Scene {
       this.scene.start('MarketPlaceScene');
     });
     marketButton.setFlip(true);
-
+    var marketIcon = this.physics.add.sprite(700, 1150, 'ShopIcon').setInteractive();
+    marketIcon.on('pointerdown', (pointer) => {
+      this.scene.start('MarketPlaceScene');
+    });
   }
 
   update() {

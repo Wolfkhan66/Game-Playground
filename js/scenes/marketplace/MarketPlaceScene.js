@@ -13,7 +13,11 @@ class MarketPlaceScene extends Phaser.Scene {
     arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
-
+    var arenaIcon = this.physics.add.sprite(105, 1150, 'ArenaIcon').setInteractive();
+    arenaIcon.on('pointerdown', (pointer) => {
+      this.scene.start('ArenaScene');
+    });
+    arenaIcon.setScale(1.5);
     for (var i = 0; i < 3; i++) {
       var shopButton = utility.createTextButton(this, 212.5, 400 + (i * 200), 350, 'Shop ' + (
       i + 1));
