@@ -46,6 +46,10 @@ class TrainingScene extends Phaser.Scene {
       this.scene.start('MainScene');
     });
     homeButton.setFlip(true);
+    var homeIcon = this.physics.add.sprite(700, 1150, 'PetAtlas', 'Idle/Sitting/Down/1.png').setInteractive();
+    homeIcon.on('pointerdown', (pointer) => {
+      this.scene.start('MainScene');
+    });
   }
 
   update() {

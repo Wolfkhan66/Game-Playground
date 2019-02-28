@@ -13,7 +13,11 @@ class MainScene extends Phaser.Scene {
     trainingButton.on('pointerdown', (pointer) => {
       this.scene.start('TrainingScene');
     });
-
+    var trainingIcon = this.physics.add.sprite(105, 1150, 'TrainingIcon').setInteractive();
+    trainingIcon.on('pointerdown', (pointer) => {
+      this.scene.start('TrainingScene');
+    });
+    trainingIcon.setScale(2);
     var arenaButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
     arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');

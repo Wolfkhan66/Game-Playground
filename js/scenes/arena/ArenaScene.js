@@ -26,6 +26,10 @@ class ArenaScene extends Phaser.Scene {
     homeButton.on('pointerdown', (pointer) => {
       this.scene.start('MainScene');
     });
+    var homeIcon = this.physics.add.sprite(105, 1150, 'PetAtlas', 'Idle/Sitting/Down/1.png').setInteractive();
+    homeIcon.on('pointerdown', (pointer) => {
+      this.scene.start('MainScene');
+    });
 
     var marketButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
     marketButton.on('pointerdown', (pointer) => {
