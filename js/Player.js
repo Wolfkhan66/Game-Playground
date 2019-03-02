@@ -6,7 +6,7 @@ class Player {
     this.petSelect = false;
     this.lastScene;
     this.currentEvent;
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 10; i++) {
       this.pets.push(new Pet());
     }
     this.activePet = this.pets[0];
