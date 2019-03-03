@@ -8,15 +8,6 @@ class FireTrainingScene extends Phaser.Scene {
   create() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    var loadingText = this.make.text({
-      x: 100,
-      y: 100,
-      text: 'Fire Training Scene',
-      style: {
-        font: '20px monospace',
-        fill: '#ffffff'
-      }
-    });
     this.player = this.registry.get('player');
     this.miniGameEnded = false;
     this.button = this.physics.add.sprite(400, 1100, 'Button');
@@ -25,8 +16,8 @@ class FireTrainingScene extends Phaser.Scene {
     for (var i = 0; i < 25; i++) {
       var ball = this.physics.add.sprite(Phaser.Math.Between(50, 750), Phaser.Math.Between(-70, -100) * i, 'Ball');
       this.balls.add(ball);
-      ball.setVelocityY(Phaser.Math.Between(100, 200));
     }
+    this.balls.setVelocityY(Phaser.Math.Between(100, 200));
     this.physics.add.overlap(this.button, this.balls, this.ballOverlap);
   }
 
