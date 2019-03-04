@@ -28,18 +28,17 @@ class MainScene extends Phaser.Scene {
       this.scene.start('ArenaScene');
     });
     arenaIcon.setScale(1.5);
-    this.player = this.registry.get('player');
     utility.createAnimations(this);
     var path = new Phaser.Curves.Line([100, 100, 500, 200]);
-    for (var i = 0; i < this.player.pets.length; i++) {
+    for (var i = 0; i < player.pets.length; i++) {
       var x = Phaser.Math.Between(100, 700);
       var y = Phaser.Math.Between(100, 1100);
-      let pet = this.player.pets[i];
+      let pet = player.pets[i];
       pet.light = utility.addLight(this, x, y, pet.tint);
       pet.sprite = this.physics.add.sprite(x, y, 'PetAtlas').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
-        this.player.lastScene = 'MainScene';
-        this.player.activePet = pet;
+        player.lastScene = 'MainScene';
+        player.activePet = pet;
         this.scene.start('PetScene');
       });
       pet.sprite.setOrigin(0.5, 0.5);
@@ -57,8 +56,8 @@ class MainScene extends Phaser.Scene {
   }
 
   update() {
-    for (var i = 0; i < this.player.pets.length; i++) {
-      this.player.pets[i].update(this);
+    for (var i = 0; i < player.pets.length; i++) {
+      player.pets[i].update(this);
     }
   }
 }

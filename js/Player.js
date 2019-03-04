@@ -7,7 +7,9 @@ class Player {
     this.lastScene;
     this.currentEvent;
     for (var i = 0; i < 10; i++) {
-      this.pets.push(new Pet());
+      var pet = new Pet();
+      pet.id = i;
+      this.pets.push(pet);
     }
     this.activePet = this.pets[0];
 

@@ -17,9 +17,8 @@ class ResultsScene extends Phaser.Scene {
         fill: '#ffffff'
       }
     });
-    this.player = this.registry.get('player');
     var resultsText;
-    switch (this.player.currentEvent) {
+    switch (player.currentEvent) {
       case 'AirTrainingScene':
         resultsText = ['Air Experience: ' + '1'];
         loadingText.text = resultsText;
@@ -56,12 +55,12 @@ class ResultsScene extends Phaser.Scene {
 
     this.continueButton = utility.createTextButton(this, 150, 1150, 500, 'Continue');
     this.continueButton.getChildren()[2].on('pointerdown', (pointer) => {
-      this.player.activePet.skills.forEach(function(skill) {
+      player.activePet.skills.forEach(function(skill) {
         if (skill.element == 'Air') {
           skill.level++;
         }
       })
-      this.scene.start(this.player.lastScene);
+      this.scene.start(player.lastScene);
     });
   }
 

@@ -6,13 +6,12 @@ class UIScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.player = this.registry.get('player');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     this.currencyText = this.make.text({
       x: 100,
       y: 40,
-      text: 'Currency: ' + this.player.currency,
+      text: 'Currency: ' + player.currency,
       style: {
         font: '20px monospace',
         fill: '#ffffff'
@@ -22,6 +21,6 @@ class UIScene extends Phaser.Scene {
   }
 
   update() {
-    this.currencyText.text = 'Currency: ' + this.player.currency;
+    this.currencyText.text = 'Currency: ' + player.currency;
   }
 }

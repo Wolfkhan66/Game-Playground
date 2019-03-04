@@ -17,11 +17,10 @@ class AirTrainingScene extends Phaser.Scene {
         fill: '#ffffff'
       }
     });
-    this.player = this.registry.get('player');
 
     this.continueButton = utility.createTextButton(this, 150, 1150, 500, 'Continue');
     this.continueButton.getChildren()[2].on('pointerdown', (pointer) => {
-      this.player.activePet.skills.forEach(function(skill) {
+      player.activePet.skills.forEach(function(skill) {
         if (skill.element == 'Air') {
           skill.level++;
         }

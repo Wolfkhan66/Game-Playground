@@ -9,8 +9,7 @@ class PetScene extends Phaser.Scene {
     utility.createAnimations(this);
     this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    this.player = this.registry.get('player');
-    this.pet = this.player.activePet;
+    this.pet = player.activePet;
     this.petInfo = this.add.group();
 
     var leftArrow = utility.createTextButton(this, 75, 275, 50, '<');
@@ -23,17 +22,17 @@ class PetScene extends Phaser.Scene {
     });
 
     this.updatePet();
-    if (this.player.petSelect) {
+    if (player.petSelect) {
       var backButton = utility.createTextButton(this, 75, 1150, 300, 'Back');
       backButton.getChildren()[2].on('pointerdown', (pointer) => {
-        this.player.petSelect = false;
-        this.scene.start(this.player.lastScene);
+        player.petSelect = false;
+        this.scene.start(player.lastScene);
       });
       var selectButton = utility.createTextButton(this, 425, 1150, 300, 'Select');
       selectButton.getChildren()[2].on('pointerdown', (pointer) => {
-        this.player.activePet = this.pet;
-        this.player.petSelect = false;
-        this.scene.start(this.player.currentEvent);
+        player.activePet = this.pet;
+        player.petSelect = false;
+        this.scene.start(player.currentEvent);
       });
     } else {
       var backButton = utility.createTextButton(this, 250, 1150, 300, 'Back');
@@ -47,23 +46,23 @@ class PetScene extends Phaser.Scene {
 
   changePet(direction) {
 
-    var index = this.player.pets.indexOf(this.pet);
+    var index = player.pets.indexOf(this.pet);
     console.log(index);
     if (direction == 'left') {
       if (index == 0) {
-        index = this.player.pets.length - 1;
+        index = player.pets.length - 1;
       } else {
         index--;
       }
     } else {
-      if (index == this.player.pets.length - 1) {
+      if (index == player.pets.length - 1) {
         index = 0;
       } else {
         index++;
       }
     }
     this.pet.sprite.destroy();
-    this.pet = this.player.pets[index];
+    this.pet = player.pets[index];
     this.updatePet();
   }
 

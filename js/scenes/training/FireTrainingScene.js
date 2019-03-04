@@ -8,7 +8,6 @@ class FireTrainingScene extends Phaser.Scene {
   create() {
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    this.player = this.registry.get('player');
     this.miniGameEnded = false;
     this.button = this.physics.add.sprite(400, 1100, 'Button');
     this.button.setOrigin(0.5, 0.5);
@@ -42,7 +41,7 @@ class FireTrainingScene extends Phaser.Scene {
       this.miniGameEnded = true;
       this.continueButton = utility.createTextButton(this, 150, 1150, 500, 'Continue');
       this.continueButton.getChildren()[2].on('pointerdown', (pointer) => {
-        this.player.activePet.skills.forEach(function(skill) {
+        player.activePet.skills.forEach(function(skill) {
           if (skill.element == 'Fire') {
             skill.level++;
           }

@@ -1,6 +1,7 @@
 class Pet {
   constructor() {
     this.sprite;
+    this.id;
     var hsv = Phaser.Display.Color.HSVColorWheel();
     var colour = hsv[Phaser.Math.Between(0, 20) * 10].color;
     this.tint = colour;

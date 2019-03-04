@@ -17,11 +17,10 @@ class FightingScene extends Phaser.Scene {
         fill: '#ffffff'
       }
     });
-    this.player = this.registry.get('player');
 
     this.test = this.physics.add.sprite(width - 70, height - 70, 'Pet').setInteractive();
     this.test.on('pointerdown', (pointer) => {
-      this.player.currency += 10;
+      player.currency += 10;
       this.scene.start('ArenaScene');
     });
 

@@ -1,4 +1,5 @@
 var utility = new Utility();
+var player = new Player();
 var game = new Phaser.Game({
   type: Phaser.WEBGL,
   scale: {
