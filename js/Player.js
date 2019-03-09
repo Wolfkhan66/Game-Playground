@@ -13,6 +13,7 @@ class Player {
     }
     this.activePet = this.pets[0];
     this.racePets = [];
+    this.raceFinishPositions = [];
     this.activeRace;
     this.activeLevel;
     this.races = [

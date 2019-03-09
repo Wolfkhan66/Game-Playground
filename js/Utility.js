@@ -186,7 +186,7 @@ class Utility {
     scene.anims.create({
       key: 'celebrate',
       frames: this.getFrames('Celebrate', frameNames),
-      frameRate: 5,
+      frameRate: 2,
       repeat: -1
     });
   }

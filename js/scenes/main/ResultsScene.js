@@ -40,6 +40,21 @@ class ResultsScene extends Phaser.Scene {
           'Currency: ' + '1',
           'Position: 1st'
         ];
+        for (var i = 0; i < 3; i++) {
+          player.raceFinishPositions[i].sprite = this.physics.add.sprite(200 * (i + 1) , 500 + (i * 100), "PetAtlas");
+        player.raceFinishPositions[i].sprite.setOrigin(0.5, 0.5);
+        player.raceFinishPositions[i].sprite.setTint(player.raceFinishPositions[i].tint);
+        player.raceFinishPositions[i].sprite.play('celebrate');
+        var PositionText = this.make.text({
+          x: 200 * (i + 1) - 25,
+          y: 300 + (i * 100),
+          text: i + 1,
+          style: {
+            font: '100px monospace',
+            fill: '#ffffff'
+          }
+        });
+        }
         loadingText.text = resultsText;
         break;
       case 'FightingScene':

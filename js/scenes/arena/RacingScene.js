@@ -8,9 +8,9 @@ class RacingScene extends Phaser.Scene {
   preload() {
     this.map = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
-      [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 3, 1, 1, 1, 1]
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+        [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 3, 1, 1, 1, 5]
     ];
     this.raceDistance = this.map[0].length * 128;
   }
@@ -23,6 +23,7 @@ class RacingScene extends Phaser.Scene {
       var waterTiles = this.physics.add.group();
       var climbingTiles = this.physics.add.group();
       var climbingTopTiles = this.physics.add.group();
+      var finishTiles = this.physics.add.group();
       for (var y = 0; y < this.map.length; y++) {
         let offset = 64 * i;
         let laneY = 128 * y + 200;
@@ -57,17 +58,25 @@ class RacingScene extends Phaser.Scene {
                   .setDepth(offset + laneY)
               );
               break;
+              case 5:
+                finishTiles.add(
+                  this.physics.add
+                    .sprite(128 * x + 64, offset + laneY, "Tile1")
+                    .setVisible(false)
+                    .setDepth(offset + laneY)
+                );
+                break;
           }
         }
       }
       var pet;
       if (i == 0) {
         pet = player.activePet;
-        pet.sprite = this.physics.add.sprite(50, 0, "PetAtlas");
-        this.cameras.main.startFollow(pet.sprite, true);
+        pet.sprite = this.physics.add.sprite(10, 64 * i + 525, "PetAtlas");
+        this.cameras.main.startFollow(pet.sprite);
       } else {
         pet = new Pet();
-        pet.sprite = this.physics.add.sprite(50, 0, "PetAtlas");
+        pet.sprite = this.physics.add.sprite(10, 64 * i + 525, "PetAtlas");
       }
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
@@ -75,18 +84,25 @@ class RacingScene extends Phaser.Scene {
       pet.sprite.setGravityY(1000);
       pet.sprite.petId = i;
       player.racePets.push({
+        PetId : i,
         Pet: pet,
         GroundTiles: groundTiles,
         WaterTiles: waterTiles,
         ClimbingTiles: climbingTiles,
-        ClimbingTopTiles: climbingTopTiles
+        ClimbingTopTiles: climbingTopTiles,
+        FinishTiles: finishTiles
       });
     }
     console.log(player.racePets);
     this.raceComplete = false;
     this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    this.cameras.main.setBounds(0, 0, this.raceDistance, height);
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.raceDistance,
+      this.map.length * 128 + 200 * 8
+    );
     var loadingText = this.make.text({
       x: 400,
       y: 100,
@@ -98,6 +114,18 @@ class RacingScene extends Phaser.Scene {
     });
     loadingText.setScrollFactor(0);
     loadingText.setOrigin(0.5, 0.5);
+
+    this.positionText = this.make.text({
+      x: 700,
+      y: 100,
+      text: '8 / 8',
+      style: {
+        font: "50px monospace",
+        fill: "#ffffff"
+      }
+    });
+    this.positionText.setScrollFactor(0);
+    this.positionText.setOrigin(0.5, 0.5);
 
     this.continueButton = utility.createTextButton(
       this,
@@ -113,6 +141,7 @@ class RacingScene extends Phaser.Scene {
     });
     this.continueButton.getChildren().forEach(function(child) {
       child.setScrollFactor(0);
+      child.setDepth(  10* 128 + 200 * 8);
     });
 
     this.continueButton.toggleVisible();
@@ -120,17 +149,55 @@ class RacingScene extends Phaser.Scene {
 
   update() {
     for (var i = 0; i < player.racePets.length; i++) {
-      player.racePets[i].Pet.sprite.setDepth(
-        player.racePets[i].Pet.sprite.y + 128
-      );
-      if (player.racePets[i].Pet.sprite.x < this.raceDistance - 40) {
-      } else {
-        if (!this.raceComplete) {
-          this.continueButton.toggleVisible();
-          player.racePets[i].Pet.sprite.setVelocityX(0);
-          this.raceComplete = true;
-        }
+      this.setpetDepth(i);
+      this.checkOverlaps(i);
+    }
+    this.checkPetPosition()
+    this.checkRaceEnded();
+  }
+
+  setpetDepth(i){
+    player.racePets[i].Pet.sprite.setDepth(
+      player.racePets[i].Pet.sprite.y + 128
+    );
+  }
+
+checkPetPosition(){
+var positions = player.racePets.sort(function(a, b) {
+        var x = a.Pet.sprite.x; var y = b.Pet.sprite.x;
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    }).reverse();
+for(var i = 0; i < positions.length; i ++) {
+      if(positions[i].PetId === 0) {
+          if(!positions[i].Pet.raceFinished){
+            this.positionText.text = (i + 1) + ' / 8';
+          }
       }
+  }
+}
+
+checkRaceEnded(){
+  if (!this.raceComplete && player.raceFinishPositions.length == 8) {
+    this.continueButton.toggleVisible();
+    this.raceComplete = true;
+  }
+}
+
+reachedFinish(i){
+  var pet = player.racePets[i].Pet;
+  if (pet.raceFinished == false) {
+    pet.raceFinished = true;
+    player.raceFinishPositions.push(pet);
+  };
+}
+
+
+checkOverlaps(i){
+  if(!
+    this.physics.overlap(
+      player.racePets[i].Pet.sprite,
+      player.racePets[i].FinishTiles
+    ) ){
       if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
@@ -144,8 +211,7 @@ class RacingScene extends Phaser.Scene {
           player.racePets[i].GroundTiles
         )
       ) {
-        console.log("GRound Overlap: " + player.racePets[i].Pet.sprite.petId);
-        this.groundOverlap(player.racePets[i].Pet.sprite);
+      this.groundOverlap(player.racePets[i].Pet.sprite);
       } else if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
@@ -163,8 +229,12 @@ class RacingScene extends Phaser.Scene {
       } else {
         this.airOverlap(player.racePets[i].Pet.sprite);
       }
+    }else{
+      this.reachedFinish(i);
+this.finishOverlap(player.racePets[i].Pet.sprite);
     }
-  }
+
+}
 
   groundOverlap(petSprite, groundTile) {
     if (petSprite.anims.getCurrentKey() != "walkLeft") {
@@ -183,6 +253,7 @@ class RacingScene extends Phaser.Scene {
       });
     }
   }
+
   climbingOverlap(petSprite, groundTile) {
     if (petSprite.anims.getCurrentKey() != "climb") {
       petSprite.play("climb");
@@ -200,6 +271,7 @@ class RacingScene extends Phaser.Scene {
       });
     }
   }
+
   airOverlap(petSprite) {
     if (petSprite.anims.getCurrentKey() != "fly") {
       petSprite.play("fly");
@@ -216,6 +288,7 @@ class RacingScene extends Phaser.Scene {
       });
     }
   }
+
   waterOverlap(petSprite, waterTile) {
     if (petSprite.anims.getCurrentKey() != "swim") {
       petSprite.play("swim");
@@ -224,6 +297,7 @@ class RacingScene extends Phaser.Scene {
           group.Pet.skills.forEach(function(skill) {
             if (skill.element == "Water") {
               petSprite.setGravityY(0);
+              petSprite.setVelocityY(0);
               petSprite.setVelocityX(50 + skill.level);
             }
           });
@@ -231,4 +305,14 @@ class RacingScene extends Phaser.Scene {
       });
     }
   }
+
+finishOverlap(petSprite, finishTile){
+  if (petSprite.anims.getCurrentKey() != "celebrate") {
+    petSprite.play("celebrate");
+    petSprite.setGravityY(0);
+    petSprite.setVelocityY(0);
+                  petSprite.setVelocityX(0);
+  }
+}
+
 }
