@@ -35,7 +35,7 @@ class MainScene extends Phaser.Scene {
       var y = Phaser.Math.Between(100, 1100);
       let pet = player.pets[i];
       pet.light = utility.addLight(this, x, y, pet.tint);
-      pet.sprite = this.physics.add.sprite(x, y, 'PetAtlas').setInteractive();
+      pet.sprite = this.physics.add.sprite(x, y, 'Egg').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
         player.lastScene = 'MainScene';
         player.activePet = pet;
@@ -43,9 +43,7 @@ class MainScene extends Phaser.Scene {
       });
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
-      pet.sprite.setScale(1);
-      pet.chooseAnimation('idle');
-      pet.move(this);
+      pet.sprite.setScale(0.1);
     }
 
     for (var i = 0; i < 20; i++) {

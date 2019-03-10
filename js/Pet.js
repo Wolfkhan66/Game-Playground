@@ -20,7 +20,8 @@ class Pet {
       'wave'
     ];
     this.petSceneAnimations = ['thinking', 'standDown', 'content', 'sittingDown', 'wave'];
-    this.hatched = 0;
+    this.hatched = false;
+    this.hatching = false;
     this.target = {
       x: 0,
       y: 0
@@ -62,12 +63,31 @@ class Pet {
   update(scene) {
     this.sprite.setDepth(this.sprite.y)
     this.light.setPosition(this.sprite.x, this.sprite.y);
-    if (this.sprite.body.speed > 0) {
-      let distance = Phaser.Math.Distance.Between(this.sprite.x, this.sprite.y, this.target.x, this.target.y);
-      if (distance < 4) {
-        this.sprite.body.reset(this.target.x, this.target.y);
-        this.chooseAnimation('idle');
-        this.move(scene);
+
+    if(this.hatched){
+      if (this.sprite.body.speed > 0) {
+        let distance = Phaser.Math.Distance.Between(this.sprite.x, this.sprite.y, this.target.x, this.target.y);
+        if (distance < 4) {
+          this.sprite.body.reset(this.target.x, this.target.y);
+          this.chooseAnimation('idle');
+          this.move(scene);
+        }
+      }
+    }else{
+      if(!this.hatching){
+        this.hatching = true;
+        let pet = this;
+        this.timedEvent = scene.time.addEvent({
+          delay: Phaser.Math.Between(0, 5000),
+          callback: function() {
+    pet.sprite.play('sittingDown');
+    pet.hatched = true;
+    pet.sprite.setScale(1);
+              pet.move(scene);
+          },
+          callbackScope: scene,
+          loop: false
+        });
       }
     }
   }
