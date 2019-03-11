@@ -6,6 +6,7 @@ class Player {
     this.petSelect = false;
     this.lastScene;
     this.currentEvent;
+    this.training;
     for (var i = 0; i < 10; i++) {
       var pet = new Pet();
       pet.id = i;

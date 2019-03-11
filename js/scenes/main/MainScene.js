@@ -11,11 +11,11 @@ class MainScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     var trainingButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
     trainingButton.on('pointerdown', (pointer) => {
-      this.scene.start('TrainingScene');
+      this.scene.start('TrainingSelectScene');
     });
     var trainingIcon = this.physics.add.sprite(105, 1150, 'TrainingIcon').setInteractive();
     trainingIcon.on('pointerdown', (pointer) => {
-      this.scene.start('TrainingScene');
+      this.scene.start('TrainingSelectScene');
     });
     trainingIcon.setScale(2);
     var arenaButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
