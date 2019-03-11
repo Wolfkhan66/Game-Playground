@@ -63,6 +63,7 @@ class ResultsScene extends Phaser.Scene {
           });
         }
         loadingText.text = resultsText;
+
         break;
       case "FightingScene":
         resultsText = ["Currency: " + "1", "Position: 1st"];

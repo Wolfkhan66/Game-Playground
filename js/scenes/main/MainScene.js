@@ -29,10 +29,10 @@ class MainScene extends Phaser.Scene {
     });
     arenaIcon.setScale(1.5);
     utility.createAnimations(this);
-    var path = new Phaser.Curves.Line([100, 100, 500, 200]);
+
     for (var i = 0; i < player.pets.length; i++) {
       var x = Phaser.Math.Between(100, 700);
-      var y = Phaser.Math.Between(100, 1100);
+      var y = Phaser.Math.Between(100, 900);
       let pet = player.pets[i];
       pet.light = utility.addLight(this, x, y, pet.tint);
       pet.sprite = this.physics.add.sprite(x, y, 'Egg').setInteractive();

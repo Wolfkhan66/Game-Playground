@@ -61,7 +61,7 @@ class Pet {
   }
 
   update(scene) {
-    this.sprite.setDepth(this.sprite.y)
+    this.sprite.setDepth(this.sprite.y);
     this.light.setPosition(this.sprite.x, this.sprite.y);
 
     if(this.hatched){

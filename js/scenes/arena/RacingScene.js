@@ -6,17 +6,14 @@ class RacingScene extends Phaser.Scene {
   }
 
   preload() {
-    this.map = [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 3, 1, 1, 1, 5]
-    ];
+    this.map =  player.activeLevel.map;
     this.raceDistance = this.map[0].length * 128;
+    this.raceComplete = false;
+        player.racePets = [];
+                            player.raceFinishPositions = [];
   }
 
   create() {
-    player.racePets = [];
     utility.createAnimations(this);
     for (var i = 0; i < 8; i++) {
       var groundTiles = this.physics.add.group();
@@ -72,6 +69,7 @@ class RacingScene extends Phaser.Scene {
       var pet;
       if (i == 0) {
         pet = player.activePet;
+        pet.raceFinished = false;
         pet.sprite = this.physics.add.sprite(10, 64 * i + 525, "PetAtlas");
         this.cameras.main.startFollow(pet.sprite);
       } else {
@@ -93,8 +91,7 @@ class RacingScene extends Phaser.Scene {
         FinishTiles: finishTiles
       });
     }
-    console.log(player.racePets);
-    this.raceComplete = false;
+
     this.width = this.cameras.main.width;
     var height = this.cameras.main.height;
     this.cameras.main.setBounds(
@@ -106,7 +103,7 @@ class RacingScene extends Phaser.Scene {
     var loadingText = this.make.text({
       x: 400,
       y: 100,
-      text: player.activeLevel,
+      text: player.activeLevel.name,
       style: {
         font: "50px monospace",
         fill: "#ffffff"
@@ -126,34 +123,17 @@ class RacingScene extends Phaser.Scene {
     });
     this.positionText.setScrollFactor(0);
     this.positionText.setOrigin(0.5, 0.5);
-
-    this.continueButton = utility.createTextButton(
-      this,
-      150,
-      1150,
-      500,
-      "Continue"
-    );
-    this.continueButton.getChildren()[2].on("pointerdown", pointer => {
-      player.currency += 10;
-      player.lastScene = "ArenaScene";
-      this.scene.start("ResultsScene");
-    });
-    this.continueButton.getChildren().forEach(function(child) {
-      child.setScrollFactor(0);
-      child.setDepth(  10* 128 + 200 * 8);
-    });
-
-    this.continueButton.toggleVisible();
   }
 
   update() {
-    for (var i = 0; i < player.racePets.length; i++) {
-      this.setpetDepth(i);
-      this.checkOverlaps(i);
+    if(!this.raceComplete){
+      for (var i = 0; i < player.racePets.length; i++) {
+        this.setpetDepth(i);
+        this.checkOverlaps(i);
+      }
+      this.checkPetPosition();
+      this.checkRaceEnded();
     }
-    this.checkPetPosition()
-    this.checkRaceEnded();
   }
 
   setpetDepth(i){
@@ -178,7 +158,23 @@ for(var i = 0; i < positions.length; i ++) {
 
 checkRaceEnded(){
   if (!this.raceComplete && player.raceFinishPositions.length == 8) {
-    this.continueButton.toggleVisible();
+    this.continueButton = utility.createTextButton(
+      this,
+      150,
+      1150,
+      500,
+      "Continue"
+    );
+    this.continueButton.getChildren()[2].on("pointerdown", pointer => {
+      player.currency += 10;
+      player.lastScene = "ArenaScene";
+      this.scene.start("ResultsScene");
+    });
+    this.continueButton.getChildren().forEach(function(child) {
+      child.setScrollFactor(0);
+      child.setDepth(  10* 128 + 200 * 8);
+    });
+
     this.raceComplete = true;
   }
 }

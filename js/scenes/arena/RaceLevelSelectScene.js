@@ -15,8 +15,9 @@ class RaceLevelSelectScene extends Phaser.Scene {
       button.getChildren()[2].on('pointerdown', (pointer) => {
         player.lastScene = 'RaceLevelSelectScene';
         player.currentEvent = 'RacingScene';
-        player.activeLevel = level.name;
+        player.activeLevel = level;
         player.petSelect = true;
+        player.activePet = player.pets[0];
         this.scene.start('PetScene');
       });
     }
