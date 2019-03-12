@@ -6,83 +6,104 @@ class Pet {
     var hsv = Phaser.Display.Color.HSVColorWheel();
     var colour = hsv[Phaser.Math.Between(0, 20) * 10].color;
     this.tint = colour;
-    this.name = 'pet' + Phaser.Math.Between(0, 100);
+    this.name = "pet" + Phaser.Math.Between(0, 100);
     this.light;
+    this.moving = false;
     this.idleAnimations = [
-      'thinking',
-      'standDown',
-      'standLeft',
-      'standRight',
-      'standUp',
-      'sittingDown',
-      'sittingLeft',
-      'sittingRight',
-      'wave'
+      "thinking",
+      "standDown",
+      "standLeft",
+      "standRight",
+      "standUp",
+      "sittingDown",
+      "sittingLeft",
+      "sittingRight",
+      "wave"
     ];
-    this.petSceneAnimations = ['thinking', 'standDown', 'content', 'sittingDown', 'wave'];
+    this.petSceneAnimations = [
+      "thinking",
+      "standDown",
+      "content",
+      "sittingDown",
+      "wave"
+    ];
     this.hatched = false;
     this.hatching = false;
     this.target = {
       x: 0,
       y: 0
-    }
+    };
     this.timedEvent;
     this.skills = [
       {
-        element: 'Fire',
+        element: "Fire",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Earth',
+      },
+      {
+        element: "Earth",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Water',
+      },
+      {
+        element: "Water",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Air',
+      },
+      {
+        element: "Air",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Light',
+      },
+      {
+        element: "Light",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Dark',
+      },
+      {
+        element: "Dark",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
-      }, {
-        element: 'Special',
+      },
+      {
+        element: "Special",
         experience: Phaser.Math.Between(0, 100),
         level: Phaser.Math.Between(0, 100)
       }
-    ]
+    ];
   }
 
   update(scene) {
     this.sprite.setDepth(this.sprite.y);
     this.light.setPosition(this.sprite.x, this.sprite.y);
 
-    if(this.hatched){
-      if (this.sprite.body.speed > 0) {
-        let distance = Phaser.Math.Distance.Between(this.sprite.x, this.sprite.y, this.target.x, this.target.y);
+    if (this.hatched) {
+      if (this.sprite.body.speed == 0 && !this.moving) {
+        this.move(scene);
+        this.moving = true;
+      } else {
+        let distance = Phaser.Math.Distance.Between(
+          this.sprite.x,
+          this.sprite.y,
+          this.target.x,
+          this.target.y
+        );
         if (distance < 4) {
           this.sprite.body.reset(this.target.x, this.target.y);
-          this.chooseAnimation('idle');
-          this.move(scene);
+          this.moving = false;
+          this.chooseAnimation("idle");
         }
       }
-    }else{
-      if(!this.hatching){
+    } else {
+      if (!this.hatching) {
         this.hatching = true;
         let pet = this;
         this.timedEvent = scene.time.addEvent({
           delay: Phaser.Math.Between(0, 5000),
           callback: function() {
-    pet.sprite.play('sittingDown');
-    pet.hatched = true;
-              pet.move(scene);
+            pet.sprite.play("sittingDown");
+            pet.hatched = true;
+            pet.move(scene);
           },
           callbackScope: scene,
           loop: false
@@ -91,16 +112,20 @@ class Pet {
     }
   }
 
+  reset(){
+    this.moving = false;
+  }
+
   move(scene) {
-    console.log('moving');
+    console.log("moving");
     let pet = this;
     pet.target.x = Phaser.Math.Between(100, 700);
     pet.target.y = Phaser.Math.Between(100, 1100);
     pet.timedEvent = scene.time.addEvent({
       delay: Phaser.Math.Between(0, 30000),
       callback: function() {
-        this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50)
-        pet.sprite.play('walkLeft');
+        this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50);
+        pet.sprite.play("walkLeft");
         if (pet.target.x > pet.sprite.x) {
           if (!pet.sprite.flipX) {
             pet.sprite.setFlip(true);
@@ -117,18 +142,17 @@ class Pet {
   chooseAnimation(group) {
     var animation;
     switch (group) {
-      case 'idle':
+      case "idle":
         animation = this.idleAnimations[Phaser.Math.Between(0, 6)];
         break;
-      case 'petScene':
+      case "petScene":
         animation = this.petSceneAnimations[Phaser.Math.Between(0, 4)];
         break;
       default:
-
     }
 
     this.sprite.play(animation);
-    if (animation == 'standRight' || animation == 'sittingRight') {
+    if (animation == "standRight" || animation == "sittingRight") {
       this.sprite.setFlip(true);
     } else {
       this.sprite.setFlip(false);

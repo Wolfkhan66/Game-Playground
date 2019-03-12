@@ -28,6 +28,7 @@ class MainScene extends Phaser.Scene {
       var x = Phaser.Math.Between(100, 700);
       var y = Phaser.Math.Between(100, 900);
       let pet = player.pets[i];
+      console.log(pet);
       pet.light = utility.addLight(this, x, y, pet.tint);
       pet.sprite = this.physics.add.sprite(x, y, 'Egg').setInteractive();
       pet.sprite.on('pointerdown', (pointer) => {
@@ -38,6 +39,7 @@ class MainScene extends Phaser.Scene {
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
       pet.sprite.body.setSize(true);
+      pet.reset();
     }
 
     for (var i = 0; i < 20; i++) {
