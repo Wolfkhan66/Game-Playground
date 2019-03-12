@@ -9,24 +9,18 @@ class MainScene extends Phaser.Scene {
     this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
-    var trainingButton = this.physics.add.sprite(100, 1150, 'Signpost').setInteractive();
+    var trainingButton = this.add.sprite(100, 1150, 'Signpost').setInteractive();
     trainingButton.on('pointerdown', (pointer) => {
       this.scene.start('TrainingSelectScene');
     });
-    var trainingIcon = this.physics.add.sprite(105, 1150, 'TrainingIcon').setInteractive();
-    trainingIcon.on('pointerdown', (pointer) => {
-      this.scene.start('TrainingSelectScene');
-    });
+    var trainingIcon = this.add.sprite(105, 1150, 'TrainingIcon');
     trainingIcon.setScale(2);
-    var arenaButton = this.physics.add.sprite(700, 1150, 'Signpost').setInteractive();
+    var arenaButton = this.add.sprite(700, 1150, 'Signpost').setInteractive();
     arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
     arenaButton.setFlip(true);
-    var arenaIcon = this.physics.add.sprite(700, 1150, 'ArenaIcon').setInteractive();
-    arenaIcon.on('pointerdown', (pointer) => {
-      this.scene.start('ArenaScene');
-    });
+    var arenaIcon = this.add.sprite(700, 1150, 'ArenaIcon');
     arenaIcon.setScale(1.5);
     utility.createAnimations(this);
 
@@ -43,7 +37,7 @@ class MainScene extends Phaser.Scene {
       });
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
-      pet.sprite.setScale(0.1);
+      pet.sprite.body.setSize(true);
     }
 
     for (var i = 0; i < 20; i++) {

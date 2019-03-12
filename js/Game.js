@@ -28,6 +28,9 @@ var game = new Phaser.Game({
     RaceLevelSelectScene
   ],
   physics: {
-    default: 'arcade'
+    default: 'arcade',
+    arcade: {
+    debug: false
+}
   }
 });

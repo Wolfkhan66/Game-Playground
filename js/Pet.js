@@ -82,7 +82,6 @@ class Pet {
           callback: function() {
     pet.sprite.play('sittingDown');
     pet.hatched = true;
-    pet.sprite.setScale(1);
               pet.move(scene);
           },
           callbackScope: scene,
