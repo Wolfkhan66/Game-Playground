@@ -103,7 +103,7 @@ class RacingScene extends Phaser.Scene {
       0,
       -300,
       this.map[0].length * 128 + (64 * 7),
-      this.map.length * 128
+      this.map.length * 128 + 500
     );
     var loadingText = this.make.text({
       x: 400,
@@ -150,13 +150,13 @@ class RacingScene extends Phaser.Scene {
   checkPetPosition() {
     var positions = player.racePets
       .sort(function(a, b) {
-        var x = a.Pet.sprite.x - (64 * a.Pet.sprite.petId);
-        var y = b.Pet.sprite.x - (64 * b.Pet.sprite.petId);
+        var x = a.Pet.sprite.x;
+        var y = b.Pet.sprite.x;
         return x < y ? -1 : x > y ? 1 : 0;
       })
       .reverse();
     for (var i = 0; i < positions.length; i++) {
-      if (positions[i].PetId === 0) {
+      if (positions[i].PetId === 7) {
         if (!positions[i].Pet.raceFinished) {
           this.positionText.text = i + 1 + " / 8";
         }
