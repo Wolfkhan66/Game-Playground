@@ -33,40 +33,56 @@ class RacingScene extends Phaser.Scene {
                 .sprite(laneX, offset + laneY, "Tile1")
                 .setDepth(offset + laneY);
               tile.body.setSize(128, 10,false);
+                              tile.body.setOffset(0,90);
               groundTiles.add(tile);
+              if(i != 7){
+                tile.setVisible(false);
+              }
               break;
             case 2:
               tile = this.physics.add
                 .sprite(laneX, offset + laneY, "Tile2")
                 .setDepth(offset + laneY);
               tile.body.setSize(128, 10, false);
+                              tile.body.setOffset(0,90);
               waterTiles.add(tile);
+              if(i != 7){
+                tile.setVisible(false);
+              }
               break;
             case 3:
             tile = this.physics.add
               .sprite(laneX, offset + laneY, "Tile3")
               .setDepth(offset + laneY);
             tile.body.setSize(128, 128, false);
+                            tile.body.setOffset(0,90);
             climbingTiles.add(tile);
+            if(i != 7){
+              tile.setVisible(false);
+            }
               break;
             case 4:
             tile = this.physics.add
               .sprite(laneX, offset + laneY, "Tile1")
               .setDepth(offset + laneY)      .setVisible(false);
             tile.body.setSize(128, 128, false);
+                            tile.body.setOffset(0,90);
             climbingTopTiles.add(tile);
+            if(i != 7){
+              tile.setVisible(false);
+            }
               break;
             case 5:
             tile = this.physics.add
               .sprite(laneX, offset + laneY, "Tile1")
               .setDepth(offset + laneY)      .setVisible(false);
             tile.body.setSize(128, 10, false);
+                            tile.body.setOffset(0,90);
             finishTiles.add(tile);
+            if(i != 7){
+              tile.setVisible(false);
+            }
               break;
-          }
-                tile.body.setOffset(0,90);
-          if(i != 7){
-            tile.setVisible(false);
           }
         }
       }
