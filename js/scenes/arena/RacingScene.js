@@ -22,48 +22,51 @@ class RacingScene extends Phaser.Scene {
       var climbingTopTiles = this.physics.add.group();
       var finishTiles = this.physics.add.group();
       for (var y = 0; y < this.map.length; y++) {
-        let offset = 128 * i;
+        let offset = 10 * i;
         let laneY = 128 * y;
         for (var x = 0; x < this.map[0].length; x++) {
-          let offsetX = 64 * i;
           let laneX = 128 * x + 64;
           var tile;
           switch (this.map[y][x]) {
             case 1:
               tile = this.physics.add
-                .sprite(offsetX + laneX, offset + laneY, "Tile1")
+                .sprite(laneX, offset + laneY, "Tile1")
                 .setDepth(offset + laneY);
-              tile.body.setSize(128, 10, true);
+              tile.body.setSize(128, 10,false);
               groundTiles.add(tile);
               break;
             case 2:
               tile = this.physics.add
-                .sprite(offsetX + laneX, offset + laneY, "Tile2")
+                .sprite(laneX, offset + laneY, "Tile2")
                 .setDepth(offset + laneY);
-              tile.body.setSize(128, 10, true);
+              tile.body.setSize(128, 10, false);
               waterTiles.add(tile);
               break;
             case 3:
             tile = this.physics.add
-              .sprite(offsetX + laneX, offset + laneY, "Tile3")
+              .sprite(laneX, offset + laneY, "Tile3")
               .setDepth(offset + laneY);
-            tile.body.setSize(128, 128, true);
+            tile.body.setSize(128, 128, false);
             climbingTiles.add(tile);
               break;
             case 4:
             tile = this.physics.add
-              .sprite(offsetX + laneX, offset + laneY, "Tile1")
+              .sprite(laneX, offset + laneY, "Tile1")
               .setDepth(offset + laneY)      .setVisible(false);
-            tile.body.setSize(128, 128, true);
+            tile.body.setSize(128, 128, false);
             climbingTopTiles.add(tile);
               break;
             case 5:
             tile = this.physics.add
-              .sprite(offsetX + laneX, offset + laneY, "Tile1")
+              .sprite(laneX, offset + laneY, "Tile1")
               .setDepth(offset + laneY)      .setVisible(false);
-            tile.body.setSize(128, 10, true);
+            tile.body.setSize(128, 10, false);
             finishTiles.add(tile);
               break;
+          }
+                tile.body.setOffset(0,90);
+          if(i != 7){
+            tile.setVisible(false);
           }
         }
       }
@@ -71,11 +74,11 @@ class RacingScene extends Phaser.Scene {
       if (i == 7) {
         pet = player.activePet;
         pet.raceFinished = false;
-        pet.sprite = this.physics.add.sprite(64 * i, 64 * i + 525, "PetAtlas");
+        pet.sprite = this.physics.add.sprite(64, 10 * i, "PetAtlas");
         this.cameras.main.startFollow(pet.sprite);
       } else {
         pet = new Pet();
-        pet.sprite = this.physics.add.sprite(64 * i, 64 * i + 525, "PetAtlas");
+        pet.sprite = this.physics.add.sprite(64, 10 * i, "PetAtlas");
       }
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
@@ -98,9 +101,9 @@ class RacingScene extends Phaser.Scene {
     var height = this.cameras.main.height;
     this.cameras.main.setBounds(
       0,
-      0,
+      -300,
       this.map[0].length * 128 + (64 * 7),
-      this.map.length * 128 + (128 * 7)
+      this.map.length * 128
     );
     var loadingText = this.make.text({
       x: 400,
