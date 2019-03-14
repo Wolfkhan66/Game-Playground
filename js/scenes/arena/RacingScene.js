@@ -11,105 +11,58 @@ class RacingScene extends Phaser.Scene {
     this.raceComplete = false;
     player.racePets = [];
     player.raceFinishPositions = [];
+    this.groundTiles = this.physics.add.group();
+    this.waterTiles = this.physics.add.group();
+    this.climbingTiles = this.physics.add.group();
+    this.climbingTopTiles = this.physics.add.group();
+    this.finishTiles = this.physics.add.group();
+    this.startTiles = this.physics.add.group();
   }
 
   create() {
     utility.createAnimations(this);
-    for (var i = 0; i < 8; i++) {
-      var groundTiles = this.physics.add.group();
-      var waterTiles = this.physics.add.group();
-      var climbingTiles = this.physics.add.group();
-      var climbingTopTiles = this.physics.add.group();
-      var finishTiles = this.physics.add.group();
+
       for (var y = 0; y < this.map.length; y++) {
-        let offset = 10 * i;
         let laneY = 128 * y;
         for (var x = 0; x < this.map[0].length; x++) {
           let laneX = 128 * x + 64;
           var tile;
           switch (this.map[y][x]) {
             case 1:
-              tile = this.physics.add
-                .sprite(laneX, offset + laneY, "Tile1")
-                .setDepth(offset + laneY);
-              tile.body.setSize(128, 10,false);
-                              tile.body.setOffset(0,90);
-              groundTiles.add(tile);
-              if(i != 7){
-                tile.setVisible(false);
-              }
+            tile = this.createTile(laneX,laneY,128,10,"Tile1");
+              this.groundTiles.add(tile);
               break;
             case 2:
-              tile = this.physics.add
-                .sprite(laneX, offset + laneY, "Tile2")
-                .setDepth(offset + laneY);
-              tile.body.setSize(128, 10, false);
-                              tile.body.setOffset(0,90);
-              waterTiles.add(tile);
-              if(i != 7){
-                tile.setVisible(false);
-              }
+            tile = this.createTile(laneX,laneY,128,10,"Tile2");
+              this.waterTiles.add(tile);
               break;
             case 3:
-            tile = this.physics.add
-              .sprite(laneX, offset + laneY, "Tile3")
-              .setDepth(offset + laneY);
-            tile.body.setSize(128, 128, false);
-                            tile.body.setOffset(0,90);
-            climbingTiles.add(tile);
-            if(i != 7){
-              tile.setVisible(false);
-            }
+            tile = this.createTile(laneX,laneY,128,128, "Tile3");
+              tile.body.setOffset(0,0);
+            this.climbingTiles.add(tile);
               break;
             case 4:
-            tile = this.physics.add
-              .sprite(laneX, offset + laneY, "Tile1")
-              .setDepth(offset + laneY)      .setVisible(false);
-            tile.body.setSize(128, 128, false);
-                            tile.body.setOffset(0,90);
-            climbingTopTiles.add(tile);
-            if(i != 7){
+              tile = this.createTile(laneX,laneY,128,128,"Tile1");
               tile.setVisible(false);
-            }
+                  tile.body.setOffset(0,0);
+            this.climbingTopTiles.add(tile);
               break;
             case 5:
-            tile = this.physics.add
-              .sprite(laneX, offset + laneY, "Tile1")
-              .setDepth(offset + laneY)      .setVisible(false);
-            tile.body.setSize(128, 10, false);
-                            tile.body.setOffset(0,90);
-            finishTiles.add(tile);
-            if(i != 7){
-              tile.setVisible(false);
-            }
+            tile = this.createTile(laneX,laneY,128,10,"Tile1");
+            this.finishTiles.add(tile);
               break;
+              case 6:
+              tile = this.createTile(laneX,laneY,128,10,"Tile1");
+              this.startTiles.add(tile);
+                break;
           }
         }
       }
-      var pet;
-      if (i == 7) {
-        pet = player.activePet;
-        pet.raceFinished = false;
-        pet.sprite = this.physics.add.sprite(64, 10 * i, "PetAtlas");
-        this.cameras.main.startFollow(pet.sprite);
-      } else {
-        pet = new Pet();
-        pet.sprite = this.physics.add.sprite(64, 10 * i, "PetAtlas");
-      }
-      pet.sprite.setOrigin(0.5, 0.5);
-      pet.sprite.setTint(pet.tint);
-      pet.sprite.setFlip(true);
-      pet.sprite.setGravityY(1000);
-      pet.sprite.body.setSize(true);
-      pet.sprite.petId = i;
+
+    for (var i = 0; i < 8; i++) {
       player.racePets.push({
         PetId: i,
-        Pet: pet,
-        GroundTiles: groundTiles,
-        WaterTiles: waterTiles,
-        ClimbingTiles: climbingTiles,
-        ClimbingTopTiles: climbingTopTiles,
-        FinishTiles: finishTiles
+        Pet: this.createPet(i),
       });
     }
 
@@ -136,7 +89,7 @@ class RacingScene extends Phaser.Scene {
     this.positionText = this.make.text({
       x: 700,
       y: 100,
-      text: "8 / 8",
+      text: "8/8",
       style: {
         font: "50px monospace",
         fill: "#ffffff"
@@ -157,6 +110,36 @@ class RacingScene extends Phaser.Scene {
     }
   }
 
+  createPet(row){
+    var pet;
+    var startTile = this.startTiles.getChildren()[0];
+    var startY = startTile.y - (10 * row);
+    if (row == 0) {
+      pet = player.activePet;
+      pet.raceFinished = false;
+      pet.sprite = this.physics.add.sprite(startTile.x,startY, "PetAtlas");
+      this.cameras.main.startFollow(pet.sprite);
+    } else {
+      pet = new Pet();
+      pet.sprite = this.physics.add.sprite(startTile.x,startY, "PetAtlas");
+    }
+    pet.sprite.setOrigin(0.5, 0.5);
+    pet.sprite.setTint(pet.tint);
+    pet.sprite.setFlip(true);
+    pet.sprite.setGravityY(1000);
+    pet.sprite.body.setOffset(0,10 * row);
+    pet.sprite.petId = row;
+    return pet;
+  }
+
+  createTile(x, y, bodyWidth, bodyHeight, image){
+    var tile = this.physics.add.sprite(x, y, image);
+    tile.setDepth(y)
+    tile.body.setSize(bodyWidth, bodyHeight, false);
+    tile.body.setOffset(0,90);
+    return tile;
+  }
+
   setpetDepth(i) {
     player.racePets[i].Pet.sprite.setDepth(
       player.racePets[i].Pet.sprite.y + 128
@@ -174,7 +157,7 @@ class RacingScene extends Phaser.Scene {
     for (var i = 0; i < positions.length; i++) {
       if (positions[i].PetId === 7) {
         if (!positions[i].Pet.raceFinished) {
-          this.positionText.text = i + 1 + " / 8";
+          this.positionText.text = i + 1 + "/8";
         }
       }
     }
@@ -215,34 +198,41 @@ class RacingScene extends Phaser.Scene {
     if (
       !this.physics.overlap(
         player.racePets[i].Pet.sprite,
-        player.racePets[i].FinishTiles
+        this.finishTiles
       )
     ) {
       if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
-          player.racePets[i].ClimbingTiles
+          this.climbingTiles
         )
       ) {
         this.climbingOverlap(player.racePets[i].Pet.sprite);
       } else if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
-          player.racePets[i].GroundTiles
+          this.groundTiles
         )
       ) {
         this.groundOverlap(player.racePets[i].Pet.sprite);
       } else if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
-          player.racePets[i].WaterTiles
+          this.startTiles
+        )
+      ) {
+        this.groundOverlap(player.racePets[i].Pet.sprite);
+      } else if (
+        this.physics.overlap(
+          player.racePets[i].Pet.sprite,
+          this.waterTiles
         )
       ) {
         this.waterOverlap(player.racePets[i].Pet.sprite);
       } else if (
         this.physics.overlap(
           player.racePets[i].Pet.sprite,
-          player.racePets[i].ClimbingTopTiles
+          this.climbingTopTiles
         )
       ) {
         this.groundOverlap(player.racePets[i].Pet.sprite);
