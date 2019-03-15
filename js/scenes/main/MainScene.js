@@ -6,7 +6,7 @@ class MainScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.scene.launch('UIScene');
+    //this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
     var trainingButton = this.add.sprite(100, 1150, 'Signpost').setInteractive();

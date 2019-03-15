@@ -8,6 +8,7 @@ class RacingScene extends Phaser.Scene {
     preload() {
         this.map = player.activeLevel.map;
         this.raceComplete = false;
+        this.raceStarted = false;
         player.racePets = [];
         player.raceFinishPositions = [];
         this.groundTiles = this.physics.add.group();
@@ -20,7 +21,7 @@ class RacingScene extends Phaser.Scene {
 
     create() {
         utility.createAnimations(this);
-
+this.physics.pause();
         for (var y = 0; y < this.map.length; y++) {
             let laneY = 128 * y;
             for (var x = 0; x < this.map[0].length; x++) {
@@ -42,7 +43,6 @@ class RacingScene extends Phaser.Scene {
                         break;
                     case 4:
                         tile = this.createTile(laneX, laneY, 128, 128, "Tile1");
-                        tile.setVisible(false);
                         tile.body.setOffset(0, 0);
                         this.groundTiles.add(tile);
                         break;
@@ -109,9 +109,56 @@ class RacingScene extends Phaser.Scene {
         });
         this.positionText.setScrollFactor(0);
         this.positionText.setOrigin(0.5, 0.5);
+
+        this.countDown = this.make.text({
+            x: 400,
+            y: 0,
+            text: "3",
+            style: {
+                font: "100px monospace",
+                fill: "#ffffff"
+            }
+        });
+        this.countDown.setOrigin(0.5,0.5);
+        this.countDown.setDepth(1280);
+        this.time.addEvent({
+          delay: 1000,
+          callback: function() {
+            this.countDown.text = "2";
+            this.time.addEvent({
+              delay: 1000,
+              callback: function() {
+                this.countDown.text = "1";
+                this.time.addEvent({
+                  delay: 1000,
+                  callback: function() {
+                    this.countDown.text = "GO";
+                    this.raceStarted = true;
+                    this.physics.resume();
+                    this.time.addEvent({
+                      delay: 1000,
+                      callback: function() {
+                        this.countDown.setVisible(false);
+                      },
+                      callbackScope: this,
+                      loop: false
+                    });
+                  },
+                  callbackScope: this,
+                  loop: false
+                });
+              },
+              callbackScope: this,
+              loop: false
+            });
+          },
+          callbackScope: this,
+          loop: false
+        });
     }
 
     update() {
+      if(this.raceStarted){
         if (!this.raceComplete) {
             for (var i = 0; i < player.racePets.length; i++) {
                 this.setpetDepth(i);
@@ -119,12 +166,13 @@ class RacingScene extends Phaser.Scene {
             this.checkPetPosition();
             this.checkRaceEnded();
         }
+      }
     }
 
     createPet(row) {
         var pet;
         var startTile = this.startTiles.getChildren()[0];
-        var startY = startTile.y - (10 * row);
+        var startY = startTile.y - (10 * row) + 15;
         if (row === 0) {
             pet = player.activePet;
             pet.raceFinished = false;
@@ -137,8 +185,9 @@ class RacingScene extends Phaser.Scene {
         pet.sprite.setOrigin(0.5, 0.5);
         pet.sprite.setTint(pet.tint);
         pet.sprite.setFlip(true);
-        pet.sprite.body.setOffset(0, 10 * row + 10);
+        pet.sprite.body.setOffset(0, 10 * row + 15);
         pet.sprite.petId = row;
+        pet.sprite.setDepth(pet.sprite.y + 128);
         return pet;
     }
 
@@ -231,7 +280,6 @@ class RacingScene extends Phaser.Scene {
 
     finishOverlap(petSprite) {
         if (petSprite.anims.getCurrentKey() !== "celebrate") {
-            console.log("Finish Reached! " + petSprite.anims.getCurrentKey())
             var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
             if (pet.Pet.raceFinished === false) {
                 pet.Pet.raceFinished = true;
