@@ -8,7 +8,7 @@ class RacingScene extends Phaser.Scene {
     preload() {
         this.map = player.activeLevel.map;
         this.raceComplete = false;
-        this.racePets = [];
+        player.racePets = [];
         player.raceFinishPositions = [];
         this.groundTiles = this.physics.add.group();
         this.waterTiles = this.physics.add.group();
@@ -36,8 +36,8 @@ class RacingScene extends Phaser.Scene {
                         this.waterTiles.add(tile);
                         break;
                     case 3:
-                        tile = this.createTile(laneX, laneY, 128, 128, "Tile3");
-                        tile.body.setOffset(0, 0);
+                        tile = this.createTile(laneX, laneY, 88, 128, "Tile3");
+                        tile.body.setOffset(32, 0);
                         this.climbingTiles.add(tile);
                         break;
                     case 4:
@@ -47,7 +47,8 @@ class RacingScene extends Phaser.Scene {
                         this.groundTiles.add(tile);
                         break;
                     case 5:
-                        tile = this.createTile(laneX, laneY, 128, 10, "Tile1");
+                        tile = this.createTile(laneX, laneY, 10, 128, "Tile1");
+                        tile.body.setOffset(96, 0);
                         this.finishTiles.add(tile);
                         break;
                     case 6:
@@ -57,7 +58,7 @@ class RacingScene extends Phaser.Scene {
                     case 7:
                         tile = this.createTile(laneX, laneY, 128, 128, "Tile1");
                         tile.setVisible(false);
-                        tile.body.setOffset(0, 0);
+                        tile.body.setOffset(50, 0);
                         this.airTiles.add(tile);
                         break;
                 }
@@ -72,7 +73,7 @@ class RacingScene extends Phaser.Scene {
             this.physics.add.overlap(pet.sprite, this.finishTiles, this.finishOverlap);
             this.physics.add.overlap(pet.sprite, this.startTiles, this.groundOverlap);
             this.physics.add.overlap(pet.sprite, this.airTiles, this.airOverlap);
-            this.racePets.push({
+            player.racePets.push({
                 PetId: i,
                 Pet: pet
             });
@@ -112,7 +113,7 @@ class RacingScene extends Phaser.Scene {
 
     update() {
         if (!this.raceComplete) {
-            for (var i = 0; i < this.racePets.length; i++) {
+            for (var i = 0; i < player.racePets.length; i++) {
                 this.setpetDepth(i);
             }
             this.checkPetPosition();
@@ -123,7 +124,7 @@ class RacingScene extends Phaser.Scene {
     createPet(row) {
         var pet;
         var startTile = this.startTiles.getChildren()[0];
-        var startY = startTile.y - (20 * row);
+        var startY = startTile.y - (10 * row);
         if (row === 0) {
             pet = player.activePet;
             pet.raceFinished = false;
@@ -136,7 +137,7 @@ class RacingScene extends Phaser.Scene {
         pet.sprite.setOrigin(0.5, 0.5);
         pet.sprite.setTint(pet.tint);
         pet.sprite.setFlip(true);
-        pet.sprite.body.setOffset(0, 20 * row + 20);
+        pet.sprite.body.setOffset(0, 10 * row + 10);
         pet.sprite.petId = row;
         return pet;
     }
@@ -150,39 +151,22 @@ class RacingScene extends Phaser.Scene {
     }
 
     setpetDepth(i) {
-        this.racePets[i].Pet.sprite.setDepth(
-            this.racePets[i].Pet.sprite.y + 128
+        player.racePets[i].Pet.sprite.setDepth(
+            player.racePets[i].Pet.sprite.y + 128
         );
     }
 
     checkPetPosition() {
-        var positions = this.racePets
-            .sort(function (a, b) {
-                var x = a.Pet.sprite.x;
-                var y = b.Pet.sprite.x;
-                return x < y ? -1 : x > y ? 1 : 0;
-            })
-            .reverse();
-        for (var i = 0; i < positions.length; i++) {
-            if (positions[i].PetId === 7) {
-                if (!positions[i].Pet.raceFinished) {
-                    this.positionText.text = i + 1 + "/8";
-                }
-            }
-        }
+        var positions = player.racePets.sort(function (a, b) { var x = a.Pet.sprite.x; var y = b.Pet.sprite.x; return x < y ? -1 : x > y ? 1 : 0; }).reverse();
+        var pet = player.racePets.find(function (group) { return group.PetId === 0 });
+        this.positionText.text = player.racePets.indexOf(pet) + 1 + "/8";
     }
 
     checkRaceEnded() {
         if (!this.raceComplete && player.raceFinishPositions.length === 8) {
-            this.continueButton = utility.createTextButton(
-                this,
-                150,
-                1150,
-                500,
-                "Continue"
-            );
+            console.log("Race Complete!");
+            this.continueButton = utility.createTextButton(this, 150, 1150, 500, "Continue");
             this.continueButton.getChildren()[2].on("pointerdown", pointer => {
-                player.currency += 10;
                 player.lastScene = "ArenaScene";
                 this.scene.start("ResultsScene");
             });
@@ -196,11 +180,12 @@ class RacingScene extends Phaser.Scene {
     }
 
     groundOverlap(petSprite) {
-        if (petSprite.anims.getCurrentKey() !== "walkLeft") {
+        var currentAnimation = petSprite.anims.getCurrentKey();
+        if (currentAnimation !== "walkLeft" && currentAnimation !== "celebrate") {
             petSprite.play("walkLeft");
             petSprite.setFlip(true);
-            var pet = this.racePets.find(p => p.PetId === petSprite.petId);
-            var skill = pet.Pet.skills.find(s => s.element === "Earth");
+            var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
+            var skill = pet.Pet.skills.find(function (skill) { return skill.element === "Earth" });
             petSprite.setGravityY(0);
             petSprite.setVelocityY(0);
             petSprite.setVelocityX(50 + skill.level);
@@ -208,11 +193,12 @@ class RacingScene extends Phaser.Scene {
     }
 
     climbingOverlap(petSprite) {
-        if (petSprite.anims.getCurrentKey() !== "climb") {
+        var currentAnimation = petSprite.anims.getCurrentKey();
+        if (currentAnimation !== "climb" && currentAnimation !== "celebrate") {
             petSprite.play("climb");
             petSprite.setFlip(true);
-            var pet = player.racePets.find(p => p.PetId === petSprite.petId);
-            var skill = pet.Pet.skills.find(s => s.element === "Fire");
+            var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
+            var skill = pet.Pet.skills.find(function (skill) { return skill.element === "Fire" });
             petSprite.setGravityY(0);
             petSprite.setVelocityY(-50 - skill.level);
             petSprite.setVelocityX(0);
@@ -220,21 +206,23 @@ class RacingScene extends Phaser.Scene {
     }
 
     airOverlap(petSprite) {
-        if (petSprite.anims.getCurrentKey() !== "fly") {
+        var currentAnimation = petSprite.anims.getCurrentKey();
+        if (currentAnimation !== "fly" && currentAnimation !== "celebrate") {
             petSprite.play("fly");
             petSprite.setFlip(true);
-            var pet = player.racePets.find(p => p.PetId === petSprite.petId);
-            var skill = pet.Pet.skills.find(s => s.element === "Air");
+            var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
+            var skill = pet.Pet.skills.find(function (skill) { return skill.element === "Air" });
             petSprite.setGravityY(800 - skill.level);
             petSprite.setVelocityX(40 + skill.level);
         }
     }
 
     waterOverlap(petSprite) {
-        if (petSprite.anims.getCurrentKey() !== "swim") {
+        var currentAnimation = petSprite.anims.getCurrentKey();
+        if (currentAnimation !== "swim" && currentAnimation !== "celebrate") {
             petSprite.play("swim");
-            var pet = player.racePets.find(p => p.PetId === petSprite.petId);
-            var skill = pet.Pet.skills.find(s => s.element === "Water");
+            var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
+            var skill = pet.Pet.skills.find(function (skill) { return skill.element === "Water" });
             petSprite.setGravityY(0);
             petSprite.setVelocityY(0);
             petSprite.setVelocityX(50 + skill.level);
@@ -243,10 +231,11 @@ class RacingScene extends Phaser.Scene {
 
     finishOverlap(petSprite) {
         if (petSprite.anims.getCurrentKey() !== "celebrate") {
-            var pet = player.racePets.find(p => p.PetId === petSprite.petId);
-            if (pet.raceFinished === false) {
-                pet.raceFinished = true;
-                player.raceFinishPositions.push(pet);
+            console.log("Finish Reached! " + petSprite.anims.getCurrentKey())
+            var pet = player.racePets.find(function (group) { return group.PetId === petSprite.petId });
+            if (pet.Pet.raceFinished === false) {
+                pet.Pet.raceFinished = true;
+                player.raceFinishPositions.push(pet.Pet);
             }
             petSprite.play("celebrate");
             petSprite.setGravityY(0);
