@@ -66,10 +66,20 @@ class LoadingScene extends Phaser.Scene {
     utility.plyaer = player;
     this.registry.set('player', player);
         this.load.image('Egg', 'assets/images/Egg.png');
-    this.load.image('Tile1', 'assets/images/Tile1.png');
-    this.load.image('Tile2', 'assets/images/Tile2.png');
-        this.load.image('Tile3', 'assets/images/Tile3.png');
+    this.load.image('GrassTile', 'assets/images/GrassTile.png');
+    this.load.image('GroundTile', 'assets/images/GroundTile.png');
+        this.load.image('FinishTile', 'assets/images/FinishTile.png');
+                this.load.image('ClimbingTopTile', 'assets/images/ClimbingTopTile.png');
+                        this.load.image('ClimbingTopGroundTile', 'assets/images/ClimbingTopGroundTile.png');
+                                this.load.image('ClimbingMiddleTile', 'assets/images/ClimbingMiddleTile.png');
+                                        this.load.image('ClimbingBottomTile', 'assets/images/ClimbingBottomTile.png');
+                                                this.load.image('WaterTile', 'assets/images/WaterTile.png');
     this.load.image('Ball', 'assets/images/Ball.png');
+        this.load.image('Paralex1', 'assets/images/Paralex1.png');
+            this.load.image('Paralex2', 'assets/images/Paralex2.png');
+                this.load.image('Paralex3', 'assets/images/Paralex3.png');
+                    this.load.image('Paralex4', 'assets/images/Paralex4.png');
+                        this.load.image('Paralex5', 'assets/images/Paralex5.png');
     this.load.image('Button', 'assets/images/Button.png');
     this.load.image('Particle', 'assets/images/Particle.png');
     this.load.image('ArenaIcon', 'assets/images/ArenaIcon.png');
@@ -78,8 +88,6 @@ class LoadingScene extends Phaser.Scene {
     this.load.image('Grass', 'assets/images/Grass1.png');
     this.load.image('Signpost', 'assets/images/Signpost2.png');
     this.load.atlas('PetAtlas', 'assets/images/PetAtlas.png', 'assets/images/PetAtlas.json');
-    for (var i = 0; i < 2; i++) {
-      this.load.image('Test' + i, 'assets/images/test.jpg');
-    }
+
   }
 }
