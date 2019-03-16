@@ -7,7 +7,7 @@ class Player {
     this.lastScene;
     this.currentEvent;
     this.training;
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 1; i++) {
       var pet = new Pet();
       pet.id = i;
       this.pets.push(pet);

@@ -9,6 +9,10 @@ class Pet {
     this.name = "pet" + Phaser.Math.Between(0, 100);
     this.light;
     this.moving = false;
+    this.age = 1;
+    this.wobbling = false;
+    this.hatching = false;
+    this.hatched = false;
     this.idleAnimations = [
       "thinking",
       "standDown",
@@ -27,8 +31,7 @@ class Pet {
       "sittingDown",
       "wave"
     ];
-    this.hatched = false;
-    this.hatching = false;
+
     this.target = {
       x: 0,
       y: 0
@@ -73,37 +76,73 @@ class Pet {
     ];
   }
 
+
   update(scene) {
     this.sprite.setDepth(this.sprite.y);
-    this.light.setPosition(this.sprite.x, this.sprite.y);
 
-    if (this.hatched) {
-      if (this.sprite.body.speed == 0 && !this.moving) {
-        this.move(scene);
-        this.moving = true;
+    if (this.age > 4) {
+      if (!this.hatched) {
+        if (!this.hatching) {
+          let pet = this;
+          this.hatching = true;
+              pet.sprite.setTexture('Hatching1');
+          scene.time.addEvent({
+            delay: 2000,
+            callback: function() {
+              pet.sprite.setTexture('Hatching2');
+              scene.time.addEvent({
+                delay: 2000,
+                callback: function() {
+  pet.sprite.setTexture('Hatching3');
+                  scene.time.addEvent({
+                    delay: 2000,
+                    callback: function() {
+
+                      pet.sprite.play("sittingDown");
+                      pet.hatched = true;
+                      pet.move(scene);
+                    },
+                    callbackScope: scene,
+                    loop: false
+                  });
+                },
+                callbackScope: scene,
+                loop: false
+              });
+            },
+            callbackScope: scene,
+            loop: false
+          });
+        }
       } else {
-        let distance = Phaser.Math.Distance.Between(
-          this.sprite.x,
-          this.sprite.y,
-          this.target.x,
-          this.target.y
-        );
-        if (distance < 4) {
-          this.sprite.body.reset(this.target.x, this.target.y);
-          this.moving = false;
-          this.chooseAnimation("idle");
+        this.light.setPosition(this.sprite.x, this.sprite.y);
+        this.sprite.setScale(1);
+        if (this.sprite.body.speed == 0 && !this.moving) {
+          this.move(scene);
+          this.moving = true;
+        } else {
+          let distance = Phaser.Math.Distance.Between(
+            this.sprite.x,
+            this.sprite.y,
+            this.target.x,
+            this.target.y
+          );
+          if (distance < 4) {
+            this.sprite.body.reset(this.target.x, this.target.y);
+            this.moving = false;
+            this.chooseAnimation("idle");
+          }
         }
       }
     } else {
-      if (!this.hatching) {
-        this.hatching = true;
+      this.sprite.setScale(0.5 +(0.15* this.age));
+      if (!this.wobbling) {
         let pet = this;
-        this.timedEvent = scene.time.addEvent({
-          delay: Phaser.Math.Between(0, 5000),
+        pet.wobbling = true;
+        scene.time.addEvent({
+          delay: 3000 - this.age * 500,
           callback: function() {
-            pet.sprite.play("sittingDown");
-            pet.hatched = true;
-            pet.move(scene);
+            pet.wobble(scene);
           },
           callbackScope: scene,
           loop: false
@@ -112,7 +151,48 @@ class Pet {
     }
   }
 
-  reset(){
+  wobble(scene) {
+    let pet = this;
+
+    scene.time.addEvent({
+      delay: 50,
+      callback: function() {
+        pet.sprite.angle += 10;
+
+        scene.time.addEvent({
+          delay: 50,
+          callback: function() {
+            pet.sprite.angle -= 10;
+
+            scene.time.addEvent({
+              delay: 50,
+              callback: function() {
+                pet.sprite.angle -= 10;
+
+                scene.time.addEvent({
+                  delay: 50,
+                  callback: function() {
+                    pet.sprite.angle += 10;
+                    pet.wobbling = false;
+                  },
+                  callbackScope: scene,
+                  loop: false
+                });
+              },
+              callbackScope: scene,
+              loop: false
+            });
+          },
+          callbackScope: scene,
+          loop: false
+        });
+      },
+      callbackScope: scene,
+      loop: false
+    });
+  }
+
+  reset() {
     this.moving = false;
   }
 

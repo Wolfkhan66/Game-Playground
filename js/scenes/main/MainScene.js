@@ -24,13 +24,24 @@ class MainScene extends Phaser.Scene {
     arenaIcon.setScale(1.5);
     utility.createAnimations(this);
 
+    var restButton = this.add.sprite(400, 100, 'Signpost').setInteractive();
+    restButton.on('pointerdown', (pointer) => {
+player.day++;
+player.pets.forEach(function(pet){
+  pet.age++;
+})
+    });
     for (var i = 0; i < player.pets.length; i++) {
       var x = Phaser.Math.Between(100, 700);
       var y = Phaser.Math.Between(100, 900);
       let pet = player.pets[i];
       console.log(pet);
-      pet.light = utility.addLight(this, x, y, pet.tint);
+pet.light = utility.addLight(this, x, y, pet.tint);
       pet.sprite = this.physics.add.sprite(x, y, 'Egg').setInteractive();
+      if (pet.hatched){
+        pet.chooseAnimation('idle');
+      }
+
       pet.sprite.on('pointerdown', (pointer) => {
         player.lastScene = 'MainScene';
         player.activePet = pet;
@@ -38,15 +49,11 @@ class MainScene extends Phaser.Scene {
       });
       pet.sprite.setOrigin(0.5, 0.5);
       pet.sprite.setTint(pet.tint);
-      pet.sprite.body.setSize(true);
+      //pet.sprite.body.setSize(true);
       pet.reset();
     }
 
-    for (var i = 0; i < 20; i++) {
-      var grass = this.physics.add.sprite(Phaser.Math.Between(0, 800), Phaser.Math.Between(0, 1280), 'Grass');
-      grass.setDepth(grass.y - 17);
-      grass.setScale(0.5)
-    }
+
   }
 
   update() {
