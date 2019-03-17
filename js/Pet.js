@@ -85,15 +85,33 @@ class Pet {
         if (!this.hatching) {
           let pet = this;
           this.hatching = true;
+                      pet.wobble(scene);
               pet.sprite.setTexture('Hatching1');
           scene.time.addEvent({
             delay: 2000,
             callback: function() {
+                          pet.wobble(scene);
               pet.sprite.setTexture('Hatching2');
               scene.time.addEvent({
                 delay: 2000,
                 callback: function() {
+                              pet.wobble(scene);
   pet.sprite.setTexture('Hatching3');
+  var light = this.add.sprite(pet.sprite.x, pet.sprite.y, 'Particle');
+  //light.setTint(pet.tint);
+  light.setDepth(1280);
+light.setScale(0);
+  scene.tweens.add({
+          targets: light,
+          scaleX: 20,
+          scaleY: 20,
+          alpha: 0,
+
+yoyo: true,
+          ease: 'Power3',
+          duration: 1000,
+          delay: 0
+      });
                   scene.time.addEvent({
                     delay: 2000,
                     callback: function() {

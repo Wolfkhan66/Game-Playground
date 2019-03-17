@@ -10,6 +10,7 @@ class Player {
     for (var i = 0; i < 1; i++) {
       var pet = new Pet();
       pet.id = i;
+      pet.age=5;
       this.pets.push(pet);
     }
     this.activePet = this.pets[0];
