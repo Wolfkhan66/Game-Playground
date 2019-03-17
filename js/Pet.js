@@ -18,7 +18,7 @@ class Pet {
       "standDown",
       "standLeft",
       "standRight",
-      "standUp",
+
       "sittingDown",
       "sittingLeft",
       "sittingRight",
@@ -217,10 +217,21 @@ yoyo: true,
   move(scene) {
     console.log("moving");
     let pet = this;
-    pet.target.x = Phaser.Math.Between(100, 700);
-    pet.target.y = Phaser.Math.Between(100, 1100);
+
+    pet.target.x = Phaser.Math.Between(pet.sprite.x-100, pet.sprite.x+100);
+    pet.target.y = Phaser.Math.Between(pet.sprite.y-100, pet.sprite.y+100);
+    if (pet.target.y>1100){
+      pet.target.y=1100;
+    } else if(pet.target.y<100){
+      pet.target.y=100;
+    }
+    if (pet.target.x>700){
+      pet.target.y=700;
+    } else if(pet.target.x<100){
+      pet.target.x=100;
+    }
     pet.timedEvent = scene.time.addEvent({
-      delay: Phaser.Math.Between(0, 30000),
+      delay: Phaser.Math.Between(2000, 7000),
       callback: function() {
         this.physics.moveTo(pet.sprite, pet.target.x, pet.target.y, 50);
         pet.sprite.play("walkLeft");

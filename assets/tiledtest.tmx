@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="16" height="20" tilewidth="128" tileheight="128" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="Preview_1" tilewidth="128" tileheight="128" tilecount="345" columns="23">
+  <image source="../../../../Downloads/Preview_1.png" width="2944" height="1920"/>
+  <tile id="138">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="139">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="140">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="141">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="142">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="143">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="161">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="162">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="163">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="164">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="165">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="166">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="184">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="185">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="186">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="187">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="188">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="189">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="207">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="208">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="209">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="210">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="211">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="212">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="230">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="231">
+   <properties>
+    <property name="ground" value="true"/>
+   </properties>
+  </tile>
+  <tile id="232">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="233">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="234">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="235">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="253">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="254">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="255">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="256">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="257">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+  <tile id="258">
+   <properties>
+    <property name="water" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="1" name="groundlayer" width="16" height="20" opacity="0.93">
+  <data encoding="csv">
+310,310,310,310,310,302,234,235,235,236,303,310,310,310,310,310,
+310,310,310,310,310,302,234,235,235,236,303,310,310,310,310,310,
+333,333,333,333,333,325,234,235,235,231,326,333,333,333,333,333,
+163,163,211,255,255,255,256,235,235,254,212,212,255,213,163,163,
+163,163,234,235,235,235,235,235,235,235,235,235,235,236,163,163,
+163,163,234,235,235,235,235,235,235,235,235,235,235,236,163,163,
+163,163,257,258,258,258,258,258,258,258,258,258,258,259,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,163,
+143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,143,
+166,166,166,166,166,166,166,166,166,166,166,166,166,166,166,166
+</data>
+ </layer>
+ <layer id="3" name="Objects" width="16" height="20">
+  <data encoding="csv">
+0,0,0,249,0,156,0,0,0,0,156,0,249,0,0,0,
+249,0,249,0,249,156,0,0,0,0,156,70,0,249,0,249,
+0,104,105,0,249,156,253,0,0,253,156,249,0,102,103,0,
+122,127,128,0,0,0,276,275,275,276,0,0,0,125,126,120,
+120,104,105,0,0,0,0,0,0,0,0,0,0,0,0,120,
+121,127,128,0,0,0,0,0,0,0,0,0,0,0,0,122,
+120,0,0,0,0,0,0,0,0,0,0,0,199,200,0,120,
+120,0,0,25,0,0,0,0,0,0,0,0,0,0,0,121,
+121,0,0,0,0,0,0,0,0,47,0,0,0,0,0,119,
+120,0,0,0,0,0,0,0,0,0,0,0,0,0,47,122,
+120,0,54,55,0,0,0,0,0,0,0,24,0,0,0,120,
+122,0,77,78,0,0,0,0,0,0,0,0,0,0,0,120,
+121,0,0,154,0,0,0,0,71,71,0,0,0,0,0,122,
+122,0,0,0,0,0,0,0,0,0,0,0,47,0,0,121,
+120,0,0,0,71,0,0,0,0,0,0,0,0,0,0,122,
+121,0,0,0,24,0,0,0,0,0,0,0,54,55,0,120,
+120,0,25,0,0,0,0,0,0,0,0,0,77,78,0,121,
+0,0,0,0,0,0,0,0,71,71,0,0,0,0,0,0,
+0,0,0,0,0,0,0,154,0,0,0,0,0,0,0,0,
+0,0,0,154,0,0,0,0,0,0,0,0,0,0,154,0
+</data>
+ </layer>
+</map>

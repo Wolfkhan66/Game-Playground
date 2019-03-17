@@ -65,6 +65,8 @@ class LoadingScene extends Phaser.Scene {
     utility.scene = this;
     utility.plyaer = player;
     this.registry.set("player", player);
+    this.load.image("tiles", "assets/images/Preview_1.png");
+    this.load.tilemapTiledJSON("map", "assets/tiledtest.json");
     this.load.image("Egg", "assets/images/Egg.png");
     this.load.image("Hatching1", "assets/images/Hatching1.png");
     this.load.image("Hatching2", "assets/images/Hatching2.png");

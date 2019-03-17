@@ -3,9 +3,19 @@ class MainScene extends Phaser.Scene {
     super({key: 'MainScene'});
   }
 
-  preload() {}
+  preload() {
+
+  }
 
   create() {
+    const map = this.make.tilemap({ key: "map"});
+    const tileset = map.addTilesetImage("Preview_1", "tiles");
+
+ // Parameters: layer name (or index) from Tiled, tileset, x, y
+ const belowLayer = map.createStaticLayer("groundlayer", tileset, 0, 0);
+ belowLayer.setScale(0.5);
+ const worldLayer = map.createStaticLayer("Objects", tileset, 0, 0);
+ worldLayer.setScale(0.5);
     //this.scene.launch('UIScene');
     var width = this.cameras.main.width;
     var height = this.cameras.main.height;
@@ -15,16 +25,16 @@ class MainScene extends Phaser.Scene {
     });
     var trainingIcon = this.add.sprite(105, 1150, 'TrainingIcon');
     trainingIcon.setScale(2);
-    var arenaButton = this.add.sprite(700, 1150, 'Signpost').setInteractive();
+    var arenaButton = this.add.sprite(924, 1150, 'Signpost').setInteractive();
     arenaButton.on('pointerdown', (pointer) => {
       this.scene.start('ArenaScene');
     });
     arenaButton.setFlip(true);
-    var arenaIcon = this.add.sprite(700, 1150, 'ArenaIcon');
+    var arenaIcon = this.add.sprite(924, 1150, 'ArenaIcon');
     arenaIcon.setScale(1.5);
     utility.createAnimations(this);
 
-    var restButton = this.add.sprite(400, 100, 'Signpost').setInteractive();
+    var restButton = this.add.sprite(512, 100, 'Signpost').setInteractive();
     restButton.on('pointerdown', (pointer) => {
 player.day++;
 player.pets.forEach(function(pet){
